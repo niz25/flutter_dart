@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, sort_child_properties_last, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:sysale/_cadastrar.dart';
-import 'package:sysale/atualizar.dart';
 import 'package:sysale/bemvindos.dart';
 import 'package:sysale/consultar.dart';
 
@@ -15,10 +14,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // String user = "";
+
   @override
   Widget build(BuildContext context) {
-    // mostra();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(126, 206, 202, 1),
@@ -74,18 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
-            ListTile(
-              leading: Icon(Icons.pending_actions_rounded),
-              title: Text('Atualizar'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyAtualizar()));
-              },
-            ),
-
             ListTile(              
               leading: Icon(Icons.search),
-              title: Text('Consultar'),
+              title: Text('Consultar/Atualizar'),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyConsulta()));
@@ -306,94 +295,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.asset(
-                            'assets/images/home3.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                            border: Border.all(
-                                color: Color.fromARGB(255, 196, 255, 247))),
-                      ),
-                      SizedBox(
-                        height: 70,
-                        child: ListTile(
-                          //leading: Image.asset('assets/images/items.png', height: 200,),
-                          title: Center(
-                            child: Text(
-                              "Atualizar",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 160, 222, 214)),
-                            ),
-                          ),
-
-                          subtitle: Text(
-                            "Aqui você pode atualizar os dados dos produtos, conforme o necessário",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: [
-                          //adiciona os botões
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyAtualizar()));
-                            },
-                            child: Text(
-                              "Acessar",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                  const Color.fromARGB(255, 160, 222, 214)),
-                              minimumSize:
-                                  MaterialStatePropertyAll(Size(200, 50)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              SizedBox(
-                height: 30,
-              ),
-
-              Card(
-                color: Color.fromARGB(255, 250, 255, 253),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-
-                //controla as sombras do card
-                elevation: 5,
-
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    //define o tamanho principal do widget
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 200,
-                        height: 200,
-                        //cobre todo o espaço disponível com a imagem
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
                             'assets/images/home2.png',
                             fit: BoxFit.cover,
                           ),
@@ -409,7 +310,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           //leading: Image.asset('assets/images/items.png', height: 200,),
                           title: Center(
                             child: Text(
-                              "Consultar",
+                              "Consultar/Atualizar",
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -418,13 +319,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
 
                           subtitle: Text(
-                            "Aqui você pode consultar os dados dos produtos, conforme o necessário",
+                            "Aqui você pode consultar os dados dos produtos e atualizar, se for de tua preferência, conforme o necessário.",
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 90,
                       ),
                       ButtonBar(
                         alignment: MainAxisAlignment.center,

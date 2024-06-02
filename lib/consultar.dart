@@ -1,155 +1,156 @@
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
-
-
-class CadastroProd {
-  final String codigo;
-  final String nome;
-  final double preco;
-  final int quantidade;
-
-
-  CadastroProd({required this.codigo, required this.nome, required this.preco, required this.quantidade});
-}
-
+import 'paginaconsulta.dart';
 
 class MyConsulta extends StatefulWidget {
   const MyConsulta({Key? key}) : super(key: key);
-
 
   @override
   State<MyConsulta> createState() => _MyConsultaState();
 }
 
-
 class _MyConsultaState extends State<MyConsulta> {
-  MySqlConnection? _connection;
-  List<CadastroProd> resultadoConsulta = [];
-  TextEditingController _controller = TextEditingController();
-  bool _buscarPorCodigo = true;
+  bool? funcionarioSelected;
 
+@override
+Widget build(BuildContext context) {
+  return Scaffold
+  (
+    appBar: AppBar
+    (
+      backgroundColor: const Color.fromRGBO(126, 206, 202, 1),
+      title: Text("Consultar/Atualizar", style: TextStyle(color: Colors.white),),
+      toolbarHeight: 71,
+      centerTitle: true,
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
 
-  @override
-  void initState() {
-    super.initState();
-    _connectToDatabase();
-  }
-
-
-  Future<void> _connectToDatabase() async {
-    _connection = await MySqlConnection.connect(ConnectionSettings(
-      host: '143.106.241.3',
-      port: 3306,
-      user: 'cl202203',
-      password: 'cl*25042007',
-      db: 'cl202203',
-    ));
-  }
-
-
-  Future<void> _consultarLista(String termo) async {
-    if (_connection == null) {
-      return; // Abortar se a conexão não estiver inicializada
-    }
-
-
-    final results = _buscarPorCodigo
-        ? await _connection!.query('SELECT * FROM SyProduto WHERE codigo LIKE ?', ['%$termo%'])
-        : await _connection!.query('SELECT * FROM SyProduto WHERE nome LIKE ?', ['%$termo%']);
-
-
-    setState(() {
-      resultadoConsulta = results.map((row) => CadastroProd(
-        codigo: row['codigo'].toString(),
-        nome: row['nome'],
-        preco: row['preco'].toDouble(),
-        quantidade: row['quantidade'],
-      )).toList();
-    });
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(126, 206, 202, 1),
-        title: Text(
-          'Consultar',
-          style: TextStyle(color: Colors.white),
-        ),
-        toolbarHeight: 71,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      labelText: _buscarPorCodigo ? 'Buscar por código' : 'Buscar por nome',
+    body: SingleChildScrollView
+    (
+      padding: EdgeInsets.all(30),
+      child: Column
+      (
+        children: 
+        [
+          Row
+          (
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: 
+            [
+              MouseRegion
+              (
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector
+                (
+                  onTap: () {
+                    setState(() {
+                      funcionarioSelected = true;
+                    });
+                  },
+                  child: Container
+                  (
+                    height: 150,
+                    width: 150,
+                    decoration: BoxDecoration
+                    (
+                      border: Border.all
+                      (
+                        color: funcionarioSelected == true ? const Color.fromARGB(255, 185, 222, 160) : Color.fromARGB(255, 69, 181, 196),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(90)),
+                      boxShadow: 
+                      [
+                        BoxShadow
+                        (
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect
+                    (
+                      borderRadius: BorderRadius.circular(90),
+                      child: Image.asset('assets/images/workers.png', fit: BoxFit.cover,),
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.swap_horiz),
-                  onPressed: () {
+              ),
+
+              MouseRegion
+              (
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector
+                (
+                  onTap: () {
                     setState(() {
-                      _buscarPorCodigo = !_buscarPorCodigo;
-                      _controller.clear();
+                      funcionarioSelected = false;
                     });
                   },
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                _consultarLista(_controller.text);
-              },
-              child: Text('Consultar'),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: SingleChildScrollView(
-                child: DataTable(
-                  columns: [
-                    DataColumn(label: Text('Código')),
-                    DataColumn(label: Text('Nome')),
-                    DataColumn(label: Text('Preço')),
-                    DataColumn(label: Text('Quantidade')),
-                  ],
-                  rows: resultadoConsulta.map((produto) {
-                    return DataRow(cells: [
-                      DataCell(Text(produto.codigo)),
-                      DataCell(Text(produto.nome)),
-                      DataCell(Text(produto.preco.toStringAsFixed(2))),
-                      DataCell(Text(produto.quantidade.toString())),
-                    ]);
-                  }).toList(),
+                  child: Container
+                  (
+                    height: 150,
+                    width: 150,
+                    decoration: BoxDecoration
+                    (
+                      border: Border.all
+                      (
+                        color: funcionarioSelected == false ? const Color.fromARGB(255, 185, 222, 160) : Color.fromARGB(255, 69, 181, 196),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(90)),
+                      boxShadow: 
+                      [
+                        BoxShadow
+                        (
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect
+                    (
+                      borderRadius: BorderRadius.circular(90),
+                      child: Image.asset('assets/images/items.png', fit: BoxFit.cover,),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+
+          SizedBox(height: 10,),
+
+          Row
+          (
+            children: 
+            [
+              SizedBox(width: 18,),
+
+              Text("Funcionários", style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 69, 181, 196)),),
+              
+              SizedBox(width: 192,),
+
+              Text("Produtos", style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 69, 181, 196)),),
+            ],
+          ),
+
+          SizedBox(height: 20,),
+
+          Divider(),
+
+          SizedBox(height: 20,),
+
+          // Exibe os formulários somente se algum gesture for selecionado
+          if (funcionarioSelected != null)
+            funcionarioSelected!
+                ? FuncionarioFormWidget()
+                : ProdutoFormWidget(),
+        ],
       ),
-    );
-  }
-
-
-  @override
-  void dispose() {
-    _connection?.close();
-    super.dispose();
-  }
+    ),
+  );
 }
 
-
-
-
-
+}
