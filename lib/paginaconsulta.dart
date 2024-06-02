@@ -65,7 +65,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 minimumSize: Size(200, 50),
                 backgroundColor: Colors.cyan[300],
               ),
-              child: Text('Consultar Funcionário'),
+              child: Text('Consultar Funcionário', style: TextStyle(color: Colors.white)),
             ),
 
             SizedBox(height: 20),
@@ -191,7 +191,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                 minimumSize: Size(200, 50),
                 backgroundColor: Colors.cyan[300],
               ),
-              child: Text('Consultar Produto'),
+              child: Text('Consultar Produto', style: TextStyle(color: Colors.white),),
             ),
 
             SizedBox(height: 20),
