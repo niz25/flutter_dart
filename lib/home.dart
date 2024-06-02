@@ -358,7 +358,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 30),
 
-              Container(
+              /*Container(
                 color: const Color.fromARGB(255, 235, 235, 235),
                 padding: EdgeInsets.all(16),
                 child: Column(
@@ -403,7 +403,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),*/
                   ],
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
