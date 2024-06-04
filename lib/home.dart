@@ -350,6 +350,91 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               SizedBox(height: 30),
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Sobre Nós "),
+        Icon(Icons.info),
+        SizedBox(width: 8),
+      ],
+    ),
+    SizedBox(height: 8),
+    Container(
+      padding: EdgeInsets.all(8), // Ajuste o padding conforme necessário
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 139, 212, 202), // Cor de fundo
+        border: Border.all(color: Colors.grey), // Adiciona uma borda cinza
+        borderRadius: BorderRadius.circular(15), // Borda arredondada
+      ),
+      child: Text(
+        'Somos criadores do projeto SySale, um sistema de vendas, temos como participantes Daniela, Gonçalo, Maria Eduarda e Heloise. Cada um responsável pelo desenvolvimento do sistema. Daniela é a gerente do projeto, trabalhando como full stack e design. Heloise é desenvolvedora front-end e design. Maria Eduarda é desenvolvedora back-end. Gonçalo é desenvolvedor back-end.',
+        textAlign: TextAlign.center, // Alinha o texto ao centro
+      ),
+    ),
+  ],
+),
+SizedBox(height: 40,),
+
+ Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: AssetImage("assets/images/dani.jpeg"),
+                  ),
+                  SizedBox(height: 8),
+                  Text("Gerente-Full stack e design"),
+                ],
+              ),
+              Column(
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: AssetImage("assets/images/helo.jpeg"),
+                  ),
+                  SizedBox(height: 8),
+                  Text("Front-end e design"),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: AssetImage("assets/images/duda.jpeg"),
+                  ),
+                  SizedBox(height: 8),
+                  Text("Back-end"),
+                ],
+              ),
+              Column(
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: AssetImage("assets/images/gon.jpeg"),
+                  ),
+                  SizedBox(height: 8),
+                  Text("Back-end"),
+                ],
+              ),
+            ],
+          ),
+        ],
+),
+
+
 
               Divider(),
 
