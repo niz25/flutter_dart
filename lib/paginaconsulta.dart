@@ -9,6 +9,12 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
   TextEditingController controlaTexto = TextEditingController();
   bool _showFuncionarioTable = false;
   bool _showProdutoTable = false;
+  bool _atuProduto = false;
+  bool _atuFuncionario = false;
+  bool _muda = false;
+  bool _showButton = true;
+   bool _showButton1 = false;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +56,63 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
             ),
 
             SizedBox(height: 20),
+      
+            SizedBox(height: 20),
 
+        if (_showFuncionarioTable)
+  SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Container(
+      width: 600, // Defina a largura necessária para forçar a rolagem horizontal
+      child: DataTable(
+        columnSpacing: 20.0,
+        dataRowHeight: 50.0,
+        columns: [
+          DataColumn(label: Text('Nome')),
+          DataColumn(label: Text('CPF')),
+          DataColumn(label: Text('Email')),
+        ],
+        rows: [
+          DataRow(cells: [
+            DataCell(Text('Daniela Mendonça')),
+            DataCell(Text('12345678910')),
+            DataCell(Text('cl202203@g.unicamp.br')),
+          ]),
+          DataRow(cells: [
+            DataCell(Text('Heloise Kuhl de Oliveira')),
+            DataCell(Text('01987654321')),
+            DataCell(Text('cl202234@g.unicamp.br')),
+          ]),
+          DataRow(cells: [
+            DataCell(Text('Gonçalo Henrique da Cruz')),
+            DataCell(Text('11223344556')),
+            DataCell(Text('cl202233@g.unicamp.br')),
+          ]),
+          DataRow(cells: [
+            DataCell(Text('Maria Eduarda Silva Demonte')),
+            DataCell(Text('66778899001')),
+            DataCell(Text('cl202251@g.unicamp.br')),
+          ]),
+        ],
+      ),
+    ),
+  ),
+
+              SizedBox(height: 15,),
+
+            Visibility(
+       visible: _showButton,
+        child:
             ElevatedButton
             (
               onPressed: () {
+                  
                 setState(() {
+                  _showButton = false;
+                   _showButton1 = true;
                   _showFuncionarioTable = true;
                   _showProdutoTable = false;
+                  
                 });
               },
               style: ElevatedButton.styleFrom
@@ -66,52 +122,57 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 backgroundColor: Colors.cyan[300],
               ),
               child: Text('Consultar Funcionário', style: TextStyle(color: Colors.white)),
-            ),
+            ),),
+            SizedBox(height: 20,),
 
-            SizedBox(height: 20),
+              Visibility(
+       visible: _showButton1,
+        child:
+           ElevatedButton
+            (
+              onPressed: () {
+                
+                setState(() {
+                 _atuProduto = false;
+                 _atuFuncionario = true;
+                  _showButton = true;
+                 _showButton1 = false;
 
-            if (_showFuncionarioTable)
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable
-                (
-                  columnSpacing: 36.0,
-                  dataRowHeight: 48.0,
-                  columns: 
-                  [
-                    DataColumn(label: Text('Nome')),
-                    DataColumn(label: Text('CPF')),
-                    DataColumn(label: Text('Email')),
-                  ],
-                  rows: 
-                  [
-                    DataRow(cells: [
-                      DataCell(Text('Daniela Mendonça')),
-                      DataCell(Text('12345678910')),
-                      DataCell(Text('cl202203@g.unicamp.br')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('Heloise Kuhl de Oliveira')),
-                      DataCell(Text('01987654321')),
-                      DataCell(Text('cl202234@g.unicamp.br')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('Gonçalo Henrique da Cruz')),
-                      DataCell(Text('11223344556')),
-                      DataCell(Text('cl202233@g.unicamp.br')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('Maria Eduarda Silva Demonte')),
-                      DataCell(Text('66778899001')),
-                      DataCell(Text('cl202251@g.unicamp.br')),
-                    ]),
-                  ],
-                ),
+                 showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Atualizado com Sucesso'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                    );
+               
+                });
+                    
+              },
+              style: ElevatedButton.styleFrom
+              (
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                minimumSize: Size(200, 50),
+                backgroundColor: Colors.cyan[300],
               ),
+              child: Text('Atualizar Funcionário', style: TextStyle(color: Colors.white)),
+            ),),
           ],
+          
         ),
       ),
+      
     );
+    
   }
 }
 
@@ -125,6 +186,8 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
   bool _buscarPorCodigo = true;
   bool _showFuncionarioTable = false;
   bool _showProdutoTable = false;
+  bool  _showButton2 = true;
+  bool  _showButton3 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -177,23 +240,6 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
             SizedBox(height: 20),
 
-            ElevatedButton
-            (
-              onPressed: () {
-                setState(() {
-                  _showProdutoTable = true;
-                  _showFuncionarioTable = false;
-                });
-              },
-              style: ElevatedButton.styleFrom
-              (
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                minimumSize: Size(200, 50),
-                backgroundColor: Colors.cyan[300],
-              ),
-              child: Text('Consultar Produto', style: TextStyle(color: Colors.white),),
-            ),
-
             SizedBox(height: 20),
 
             if (_showProdutoTable)
@@ -233,6 +279,67 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                   ],
                 ),
               ),
+              SizedBox(height: 15,),
+               Visibility(
+       visible: _showButton2,
+        child:  ElevatedButton
+            (
+              onPressed: () {
+                setState(() {
+                   _showButton2 = false;
+                   _showButton3 = true;
+                  _showProdutoTable = true;
+                  _showFuncionarioTable = false;
+                });
+              },
+              style: ElevatedButton.styleFrom
+              (
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                minimumSize: Size(200, 50),
+                backgroundColor: Colors.cyan[300],
+              ),
+              child: Text('Consultar Produto', style: TextStyle(color: Colors.white),),
+            ),),
+
+                Visibility(
+       visible: _showButton3,
+        child:  ElevatedButton
+            (
+              onPressed: () {
+                setState(() {
+                 _showButton2 = true;
+                 _showButton3 = false;
+                  _showProdutoTable = true;
+                  _showFuncionarioTable = false;
+
+                   showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Atualizado com Sucesso'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                    );
+
+                  
+                });
+              },
+              style: ElevatedButton.styleFrom
+              (
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                minimumSize: Size(200, 50),
+                backgroundColor: Colors.cyan[300],
+              ),
+              child: Text('Atualizar Produto', style: TextStyle(color: Colors.white),),
+            ),),
           ],
         ),
       ),

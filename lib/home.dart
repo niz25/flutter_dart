@@ -17,53 +17,52 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return Scaffold
+    (
+      appBar: AppBar
+      (
         backgroundColor: const Color.fromRGBO(126, 206, 202, 1),
-        title: Text(
-          'SySale',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text('SySale', style: TextStyle(color: Colors.white),),
         toolbarHeight: 71,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
       ),
 
       //gaveta com opções
-      drawer: Drawer(
+      drawer: Drawer
+      (
         //opções
-        child: ListView(
+        child: ListView
+        (
           padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
+          children: <Widget>
+          [
+            Container
+            (
               height: 80,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
+              child: DrawerHeader
+              (
+                decoration: BoxDecoration
+                (
                   color: Color.fromRGBO(69, 181, 196, 1),
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.home,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Menu',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
+                child: Row
+                (
+                  children: 
+                  [
+                    Icon(Icons.home, color: Colors.white,),
+
+                    SizedBox(width: 10,),
+
+                    Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24,),),
                   ],
                 ),
               ),
             ),
 
             //opções
-            ListTile(
+            ListTile
+            (
               leading: Icon(Icons.app_registration_outlined),
               title: Text('Cadastrar'),
               onTap: () {
@@ -72,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
-            ListTile(              
+            ListTile
+            (              
               leading: Icon(Icons.search),
               title: Text('Consultar/Atualizar'),
               onTap: () {
@@ -88,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.logout),
               title: Text('Sair'),
               onTap: () {
-                showDialog(
+                showDialog
+                (
                   context: context,
                   builder: (context) {
                     return AlertDialog(
@@ -102,34 +103,28 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       content: 
                       SizedBox(height: 150, width: 150, child: Image.asset('assets/images/question.png'),), 
-                      actions: [
-                      
-                        TextButton(
+                      actions: 
+                      [
+                        TextButton
+                        (
                           onPressed: () {
-                            // Fecha o diálogo de confirmação
+                            // fecha o diálogo de confirmação
                             Navigator.of(context).pop();
-                            // Faz logout
+                            // faz logout
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(builder: (context) => MyFirstPage()),
                               (route) => false,
                             );
                           },
-                          child: Text(
-                            'Sim',
-                            style: TextStyle(color: Colors.cyan),
-                          ),
-                        ),
+                          child: Text('Sim', style: TextStyle(color: Colors.cyan),),),
                         
-                        TextButton(
+                        TextButton
+                        (
                           onPressed: () {
-                            // Fecha o diálogo de confirmação
                             Navigator.of(context).pop();
                           },
-                          child: Text(
-                            'Não',
-                            style: TextStyle(color: Colors.cyan),
-                          ),
+                          child: Text('Não', style: TextStyle(color: Colors.cyan),),
                         ),
                       ],
                     );
@@ -137,129 +132,126 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-
           ],
         ),
       ),
 
-      body: SingleChildScrollView(
+      body: SingleChildScrollView
+      (
         padding: EdgeInsets.all(30),
-        child: Center(
-          child: Column(
+        child: Center
+        (
+          child: Column
+          (
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
+            children: 
+            [
+              CircleAvatar
+              (
                 radius: 95,
                 backgroundColor: Color.fromARGB(255, 69, 181, 196),
                 backgroundImage: AssetImage('assets/images/home.png'),
               ),
 
-              SizedBox(
-                height: 20,
-              ),
-              Row(
+              SizedBox(height: 20,),
+              Row
+              (
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Bem vindo(a) " + widget.nome + " !",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 160, 222, 214),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300)),
+                children: 
+                [
+                  Text("Bem vindo(a) " + widget.nome + " !", style: TextStyle(color: Color.fromARGB(255, 160, 222, 214), fontSize: 20, fontWeight: FontWeight.w300)),
                 ],
               ),
 
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
 
               Divider(),
 
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
 
               Text("Esse é o sistema de vendas SySale"),
 
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30,),
 
               //CARD DE CADASTRO
-              Card(
+              Card
+              (
                 color: Color.fromARGB(255, 250, 255, 253),
-                shape: RoundedRectangleBorder(
+                shape: RoundedRectangleBorder
+                (
                   borderRadius: BorderRadius.circular(20),
                 ),
 
                 //controla as sombras do card
                 elevation: 5,
 
-                child: Padding(
+                child: Padding
+                (
                   padding: EdgeInsets.all(20),
-                  child: Column(
+                  child: Column
+                  (
                     //define o tamanho principal do widget
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
+                    children: 
+                    [
+                      Container
+                      (
                         width: 200,
                         height: 200,
                         //cobre todo o espaço disponível com a imagem
-                        child: ClipRRect(
+                        child: ClipRRect
+                        (
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
-                            'assets/images/home1.png',
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.asset('assets/images/home1.png', fit: BoxFit.cover,),
                         ),
-                        decoration: BoxDecoration(
+                        decoration: BoxDecoration
+                        (
                             borderRadius: BorderRadius.all(Radius.circular(50)),
-                            border: Border.all(
-                                color: Color.fromARGB(255, 196, 255, 247))),
-                      ),
-                      SizedBox(
-                        height: 70,
-                        child: ListTile(
-                          //leading: Image.asset('assets/images/items.png', height: 200,),
-                          title: Center(
-                            child: Text(
-                              "Cadastro",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 160, 222, 214)),
+                            border: Border.all
+                            (
+                                color: Color.fromARGB(255, 196, 255, 247)
                             ),
+                        ),
+                      ),
+
+                      SizedBox
+                      (
+                        height: 70,
+                        child: ListTile
+                        (
+                          title: Center
+                          (
+                            child: Text("Cadastro", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 160, 222, 214)),),
                           ),
 
-                          subtitle: Text(
-                            "Aqui você pode cadastrar produtos e funcionários.",
-                            textAlign: TextAlign.center,
-                          ),
+                          subtitle: Text("Aqui você pode cadastrar produtos e funcionários.",textAlign: TextAlign.center,),
                         ),
                       ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      ButtonBar(
+
+                      SizedBox(height: 50,),
+
+                      ButtonBar
+                      (
                         alignment: MainAxisAlignment.center,
-                        children: [
+                        children: 
+                        [
                           //adiciona os botões
-                          TextButton(
+                          TextButton
+                          (
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyCadastro()));
                             },
-                            child: Text(
-                              "Acessar",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                  const Color.fromARGB(255, 160, 222, 214)),
-                              minimumSize:
-                                  MaterialStatePropertyAll(Size(200, 50)),
+                            child: Text("Acessar", style: TextStyle(fontSize: 15, color: Colors.white),),
+                            style: ButtonStyle
+                            (
+                              backgroundColor: MaterialStatePropertyAll
+                              (
+                                  const Color.fromARGB(255, 160, 222, 214)
+                              ),
+                              minimumSize: MaterialStatePropertyAll(Size(200, 50)),
                             ),
                           ),
                         ],
@@ -269,85 +261,85 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
 
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30,),
 
-              Card(
+              Card
+              (
                 color: Color.fromARGB(255, 250, 255, 253),
-                shape: RoundedRectangleBorder(
+                shape: RoundedRectangleBorder
+                (
                   borderRadius: BorderRadius.circular(20),
                 ),
 
                 //controla as sombras do card
                 elevation: 5,
 
-                child: Padding(
+                child: Padding
+                (
                   padding: EdgeInsets.all(20),
-                  child: Column(
+                  child: Column
+                  (
                     //define o tamanho principal do widget
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
+                    children: 
+                    [
+                      Container
+                      (
                         width: 200,
                         height: 200,
                         //cobre todo o espaço disponível com a imagem
-                        child: ClipRRect(
+                        child: ClipRRect
+                        (
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
-                            'assets/images/home2.png',
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.asset('assets/images/home2.png', fit: BoxFit.cover,),
                         ),
-                        decoration: BoxDecoration(
+                        decoration: BoxDecoration
+                        (
                             borderRadius: BorderRadius.all(Radius.circular(50)),
                             border: Border.all(
-                                color: Color.fromARGB(255, 196, 255, 247))),
-                      ),
-                      SizedBox(
-                        height: 70,
-                        child: ListTile(
-                          //leading: Image.asset('assets/images/items.png', height: 200,),
-                          title: Center(
-                            child: Text(
-                              "Consultar/Atualizar",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 160, 222, 214)),
-                            ),
-                          ),
-
-                          subtitle: Text(
-                            "Aqui você pode consultar os dados dos produtos e atualizar, se for de tua preferência, conforme o necessário.",
-                            textAlign: TextAlign.center,
-                          ),
+                                color: Color.fromARGB(255, 196, 255, 247))
                         ),
                       ),
-                      SizedBox(
-                        height: 90,
+
+                      SizedBox
+                      (
+                        height: 70,
+                        child: ListTile
+                        (
+                          title: Center
+                          (
+                            child: Text("Consultar/Atualizar", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 160, 222, 214)),),
+                          ),
+
+                          subtitle: Text("Aqui você pode consultar os dados dos produtos e atualizar, se for de tua preferência, conforme o necessário.", textAlign: TextAlign.center,),
+                        ),
                       ),
-                      ButtonBar(
+
+                      SizedBox(height: 90,),
+
+                      ButtonBar
+                      (
                         alignment: MainAxisAlignment.center,
-                        children: [
+                        children: 
+                        [
                           //adiciona os botões
-                          TextButton(
+                          TextButton
+                          (
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyConsulta()));
                             },
-                            child: Text(
-                              "Acessar",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                  const Color.fromARGB(255, 160, 222, 214)),
-                              minimumSize:
-                                  MaterialStatePropertyAll(Size(200, 50)),
+                            child: Text("Acessar",style: TextStyle(fontSize: 15, color: Colors.white),),
+
+                            style: ButtonStyle
+                            (
+                              backgroundColor: MaterialStatePropertyAll
+                              (
+                                  const Color.fromARGB(255, 160, 222, 214)
+                              ),
+                              minimumSize: MaterialStatePropertyAll(Size(200, 50)),
                             ),
                           ),
                         ],
@@ -356,65 +348,128 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
               SizedBox(height: 30),
 
-              /*Container(
-                color: const Color.fromARGB(255, 235, 235, 235),
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Color.fromARGB(255, 69, 181, 196),
-                      backgroundImage:
-                          AssetImage('assets/images/profilewoman.png'),
+              Divider(),
+
+              SizedBox(height: 30),
+
+              Column
+              (
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: 
+                [
+                  Row
+                  (
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: 
+                    [
+                      Icon(Icons.info, color: Color.fromARGB(255, 160, 222, 214),),
+                      Text("Sobre Nós", style: TextStyle(color: Color.fromARGB(255, 160, 222, 214), fontSize: 25, fontWeight: FontWeight.bold),),
+                      SizedBox(width: 8),
+                    ],
+                  ),
+
+                  SizedBox(height: 8),
+
+                  Container
+                  ( 
+                    padding: EdgeInsets.all(8),  
+                    child: Text
+                    (
+                      'Somos criadores do projeto SySale, um sistema de vendas, temos como participantes Daniela, Gonçalo, Maria Eduarda e Heloise. Cada um responsável pelo desenvolvimento do sistema. Daniela é a gerente do projeto, trabalhando como full-stack e designer. Heloise é desenvolvedora front-end e designer. Maria Eduarda é desenvolvedora back-end. Gonçalo é desenvolvedor back-end.',
+                      textAlign: TextAlign.justify,
                     ),
-                    SizedBox(height: 16),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Color.fromARGB(255, 69, 181, 196),
-                      backgroundImage:
-                          AssetImage('assets/images/profilewoman.png'),
-                    ),
-                    SizedBox(height: 16),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Color.fromARGB(255, 69, 181, 196),
-                      backgroundImage:
-                          AssetImage('assets/images/profileman.png'),
-                    ),
-                    SizedBox(height: 16),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Color.fromARGB(255, 69, 181, 196),
-                      backgroundImage:
-                          AssetImage('assets/images/profilewoman.png'),
-                    ),
-                    SizedBox(height: 16),
-                    /*Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.info),
-                        SizedBox(width: 8),
-                        Text('Sobre nós'),
-                      ],
-                    ),*/
-                  ],
-                ),
-              ),*/
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 40,),
+
+              Column
+              (
+                children: 
+                [
+                  Row
+                  (
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: 
+                    [
+                      Column
+                      (
+                        children: 
+                        [
+                          CircleAvatar
+                          (
+                            radius: 80,
+                            backgroundImage: AssetImage("assets/images/dani.jpeg"),
+                          ),
+                          SizedBox(height: 8),
+                          Text("Gerente, Dev. Full-Stack"),
+                          Text("e Designer"),
+                        ],
+                      ),
+
+                      Column
+                      (
+                        children: 
+                        [
+                          CircleAvatar
+                          (
+                            radius: 80,
+                            backgroundImage: AssetImage("assets/images/helo.jpeg"),
+                          ),
+                          SizedBox(height: 8),
+                          Text("Dev.Front-end e Designer"),
+                        ],
+                      ),      
+                    ],
+                  ),
+
+                  SizedBox(height: 15),
+
+                  Row
+                  (
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: 
+                    [
+                      Column
+                      (
+                        children: 
+                        [
+                          CircleAvatar
+                          (
+                            radius: 80,
+                            backgroundImage: AssetImage("assets/images/duda.jpeg"),
+                          ),
+                          SizedBox(height: 8),
+                          Text("Dev.Back-end"),
+                        ],
+                      ),
+
+                      Column
+                      (
+                        children: 
+                        [
+                          CircleAvatar
+                          (
+                            radius: 80,
+                            backgroundImage: AssetImage("assets/images/gon.jpeg"),
+                          ),
+                          SizedBox(height: 8),
+                          Text("Dev.Back-end"),
+                        ],
+                      ),
+                    ],
+                  ),      
+                ],
+              ),
+
             ],
           ),
         ),
       ),
     );
   }
-  /*void mostra()
-  {
-    for(int i=0; i<widget.lista.length; i++)
-    {
-      user = user + " " + widget.lista[i];
-    }
-  }*/
 }
