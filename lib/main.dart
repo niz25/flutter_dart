@@ -3,7 +3,7 @@ import 'package:sysale/bemvindos.dart';
 import 'package:sysale/_cadastrar.dart';
 import 'package:sysale/esqueceuSenha.dart';
 import 'package:sysale/home.dart';
-import 'package:sysale/splashscreen_abertura';
+import 'package:sysale/splashscreen_abertura.dart';
 
 void main() {
   runApp(const MyApp());
