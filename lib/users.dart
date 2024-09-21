@@ -1,13 +1,13 @@
 class Usuarios
 {
   String _login = "";
-  int _senha = 0;
+  String _senha = "";
   bool _func = false;
 
   //GETTERS E SETTERS
-  get senha => this._senha;
+  String get senha => this._senha;
 
-  set senha( value) => this._senha = value;
+  set senha(String value) => this.senha = value;
 
   String get login => this._login;
 

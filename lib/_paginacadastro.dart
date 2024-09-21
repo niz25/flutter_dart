@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
-
 import 'package:flutter/material.dart';
 import 'package:sysale/_cadastrofunc.dart';
 import 'package:sysale/string_extension.dart';
@@ -38,6 +37,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                   color: Color.fromARGB(255, 69, 181, 196),
                   fontSize: 25,
                   fontWeight: FontWeight.w400,
+                  fontFamily: "Space_Grotesk", // Adicionando fontFamily
                 ),
               ),
               SizedBox(height: 25),
@@ -61,7 +61,6 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                       errorText:
                           value ? null : "Preencha o campo com um nome válido",
                     ),
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       value = value?.trim();
                       if (value == null || value.isEmpty) {
@@ -85,7 +84,6 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                         text: capitalizeText,
                         selection: controlaNome.selection,
                       );
-                      // nomeValido.value = value.isNotEmpty;
                     },
                   );
                 },
@@ -197,20 +195,20 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                             SizedBox(
                               width: 5,
                             ),
-                            Text('ERRO'),
+                            Text('ERRO', style: TextStyle(fontFamily: "Space_Grotesk")),
                           ]),
                           content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'O funcionário não foi cadastrado! Já existe um funcionário com esse CPF.',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Image.asset('assets/images/error.png', height: 150, width: 150),
-                                ],
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'O funcionário não foi cadastrado! Já existe um funcionário com esse CPF.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
                               ),
+                              SizedBox(height: 20),
+                              Image.asset('assets/images/error.png', height: 150, width: 150),
+                            ],
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -218,7 +216,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                               },
                               child: Text(
                                 'OK',
-                                style: TextStyle(color: Colors.cyan),
+                                style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
                               ),
                             ),
                           ],
@@ -243,21 +241,21 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                             children: [
                               Icon(Icons.check),
                               SizedBox(width: 5),
-                              Text('Funcionário Cadastrado!'),
+                              Text('Funcionário Cadastrado!', style: TextStyle(fontFamily: "Space_Grotesk")),
                             ],
                           ),
                           content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'O funcionário foi cadastrado com sucesso!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Image.asset('assets/images/check.png', height: 150, width: 150),
-                                ],
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'O funcionário foi cadastrado com sucesso!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
                               ),
+                              SizedBox(height: 20),
+                              Image.asset('assets/images/check.png', height: 150, width: 150),
+                            ],
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -265,7 +263,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                               },
                               child: Text(
                                 'OK',
-                                style: TextStyle(color: Colors.cyan),
+                                style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
                               ),
                             ),
                           ],
@@ -287,7 +285,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 child: Text(
                   "Cadastrar",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"), // Adicionando fontFamily
                 ),
               ),
             ],
@@ -342,25 +340,15 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                   Text(
                     "Cadastro de Produtos",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 69, 181, 196),
-                        fontSize: 25,
-                        fontWeight: FontWeight.w400),
+                      color: Color.fromARGB(255, 69, 181, 196),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Space_Grotesk", // Adicionando fontFamily
+                    ),
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
-
-                  /*ValueListenableBuilder: 
-                - widget que constrói a interface com base nas mudanças de um ValueNotifier ou qualquer outro objeto 
-                que implemente a interface ValueListenable
-              
-                - ele monitora o valueListenable e reconstói a interface sempre que o valor do objeto muda
-              */
+                  SizedBox(height: 25),
                   ValueListenableBuilder(
-                    valueListenable:
-                        codValido, //monitora o ValueNotifier codValido
-                    /*builder: sempre que o codValido.value mudar, esta função será chamada 
-                  para reconstruir a interface*/
+                    valueListenable: codValido,
                     builder: (context, value, child) {
                       return TextFormField(
                         controller: controlaCod,
@@ -373,34 +361,23 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                             borderSide: BorderSide(color: Colors.cyan),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5.0),
-                          //se o valor for diferente de null, exibe uma mensagem de erro
-                          errorText: value
-                              ? null
-                              : "Preencha o campo com um código válido",
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                          errorText: value ? null : "Preencha o campo com um código válido",
                         ),
-                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
                           value = value?.trim();
-                          if (value!.isEmpty || value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Por favor, insira o código.';
                           }
                           return null;
                         },
-
-                        //chamado sempre que o texto muda
                         onChanged: (value) {
-                          /*atualza o codValido.value para true se o campo não estiver vazio 
-                        ou para false se estuver vazio*/
                           codValido.value = value.isNotEmpty;
                         },
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   ValueListenableBuilder(
                     valueListenable: nomeValido,
                     builder: (context, value, child) {
@@ -417,13 +394,9 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                             borderSide: BorderSide(color: Colors.cyan),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5.0),
-                          errorText: value
-                              ? null
-                              : "Preencha o campo com um nome válido",
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                          errorText: value ? null : "Preencha o campo com um nome válido",
                         ),
-                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
                           value = value?.trim();
                           if (value == null || value.isEmpty) {
@@ -437,12 +410,11 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                         onChanged: (value) {
                           String capitalizeText = value.split(' ').map((word) {
                             if (word.isNotEmpty) {
-                              return word[0].toUpperCase() +
-                                  word.substring(1).toLowerCase();
+                              return word[0].toUpperCase() + word.substring(1).toLowerCase();
                             } else {
                               return '';
                             }
-                          }).join(' '); // Junte as palavras novamente
+                          }).join(' ');
                           controlaNome.value = TextEditingValue(
                             text: capitalizeText,
                             selection: controlaNome.selection,
@@ -451,9 +423,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   ValueListenableBuilder(
                     valueListenable: precoValido,
                     builder: (context, value, child) {
@@ -468,13 +438,9 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                             borderSide: BorderSide(color: Colors.cyan),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5.0),
-                          errorText: value
-                              ? null
-                              : "Preencha o campo com um preço válido",
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                          errorText: value ? null : "Preencha o campo com um preço válido",
                         ),
-                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
                           value = value?.trim();
                           if (value == null || value.isEmpty) {
@@ -488,9 +454,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   ValueListenableBuilder(
                     valueListenable: qtdeValido,
                     builder: (context, value, child) {
@@ -505,13 +469,9 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                             borderSide: BorderSide(color: Colors.cyan),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 5.0),
-                          errorText: value
-                              ? null
-                              : "Preencha o campo com uma quantidade válida",
+                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                          errorText: value ? null : "Preencha o campo com uma quantidade válida",
                         ),
-                        // autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
                           value = value?.trim();
                           if (value == null || value.isEmpty) {
@@ -525,188 +485,167 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   ElevatedButton(
-                      onPressed: () {
-                        //vê se os campos estão vazios ou não
-                        bool isCodValid = controlaCod.text.isNotEmpty;
-                        bool isNomeValid = controlaNome.text.isNotEmpty &&
-                            controlaNome.text.length >= 3;
-                        bool isPrecoValid = controlaPreco.text.isNotEmpty;
-                        bool isQtdeValid = controlaQtde.text.isNotEmpty;
+                    onPressed: () {
+                      bool isCodValid = controlaCod.text.isNotEmpty;
+                      bool isNomeValid = controlaNome.text.isNotEmpty && controlaNome.text.length >= 3;
+                      bool isPrecoValid = controlaPreco.text.isNotEmpty;
+                      bool isQtdeValid = controlaQtde.text.isNotEmpty;
 
-                        setState(() {
-                          //se eles não estiverem vazios, ele muda o estado
-                          codValido.value = isCodValid;
-                          nomeValido.value = isNomeValid;
-                          precoValido.value = isPrecoValid;
-                          qtdeValido.value = isQtdeValid;
-                        });
+                      setState(() {
+                        codValido.value = isCodValid;
+                        nomeValido.value = isNomeValid;
+                        precoValido.value = isPrecoValid;
+                        qtdeValido.value = isQtdeValid;
+                      });
 
-                        bool isCodCadastrado = listaProd.any((produto) =>
-                            produto.cod == int.parse(controlaCod.text));
+                      bool isCodCadastrado = listaProd.any((produto) => produto.cod == int.parse(controlaCod.text));
 
-                        if (isCodCadastrado) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Row(
-                                  children: [
-                                    Icon(Icons.error),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text('ERRO'),
-                                  ],
-                                ),
-                                content: Column(
+                      if (isCodCadastrado) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Row(
+                                children: [
+                                  Icon(Icons.error),
+                                  SizedBox(width: 5),
+                                  Text('ERRO', style: TextStyle(fontFamily: "Space_Grotesk")),
+                                ],
+                              ),
+                              content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     'O produto não foi cadastrado! Já existe um produto com esse código.',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
                                   ),
                                   SizedBox(height: 20),
                                   Image.asset('assets/images/error.png', height: 150, width: 150),
                                 ],
                               ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'OK',
-                                      style: TextStyle(color: Colors.cyan),
-                                    ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                          return;
-                        }
-
-                        bool isNomeCadastrado = listaProd.any(
-                          (produto) =>
-                              produto.nome /*.toLowerCase()*/ ==
-                              controlaNome.text /*.toLowerCase()*/,
+                                ),
+                              ],
+                            );
+                          },
                         );
+                        return;
+                      }
 
-                        if (isNomeCadastrado) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Row(children: [
-                                  Icon(Icons.error),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text('ERRO'),
-                                ]),
-                                content: Column(
+                      bool isNomeCadastrado = listaProd.any((produto) => produto.nome == controlaNome.text);
+
+                      if (isNomeCadastrado) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Row(children: [
+                                Icon(Icons.error),
+                                SizedBox(width: 5),
+                                Text('ERRO', style: TextStyle(fontFamily: "Space_Grotesk")),
+                              ]),
+                              content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     'O produto não foi cadastrado! Já existe um produto com esse nome.',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
                                   ),
                                   SizedBox(height: 20),
                                   Image.asset('assets/images/error.png', height: 150, width: 150),
                                 ],
                               ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'OK',
-                                      style: TextStyle(color: Colors.cyan),
-                                    ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                          return;
-                        }
-
-                        //se todos estiverem válidos, ele instancia e mostra
-                        if (isCodValid &&
-                            isNomeValid &&
-                            isPrecoValid &&
-                            isQtdeValid) {
-                          int cod = int.parse(controlaCod.text);
-                          String nome = controlaNome.text;
-                          double preco = double.parse(controlaPreco.text);
-                          int qtde = int.parse(controlaQtde.text);
-                          CadastroProd cp =
-                              CadastroProd(cod, nome, preco, qtde);
-                          listaProd.add(cp);
-                          mostrarPro();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Row(
-                                  children: [
-                                    Icon(Icons.check),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text('Produto Cadastrado!'),
-                                  ],
                                 ),
-                                content: Column(
+                              ],
+                            );
+                          },
+                        );
+                        return;
+                      }
+
+                      if (isCodValid && isNomeValid && isPrecoValid && isQtdeValid) {
+                        int cod = int.parse(controlaCod.text);
+                        String nome = controlaNome.text;
+                        double preco = double.parse(controlaPreco.text);
+                        int qtde = int.parse(controlaQtde.text);
+                        CadastroProd cp = CadastroProd(cod, nome, preco, qtde);
+                        listaProd.add(cp);
+                        mostrarPro();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Row(
+                                children: [
+                                  Icon(Icons.check),
+                                  SizedBox(width: 5),
+                                  Text('Produto Cadastrado!', style: TextStyle(fontFamily: "Space_Grotesk")),
+                                ],
+                              ),
+                              content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     'O produto foi cadastrado com sucesso!',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
                                   ),
                                   SizedBox(height: 20),
                                   Image.asset('assets/images/check.png', height: 150, width: 150),
                                 ],
                               ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'OK',
-                                      style: TextStyle(color: Colors.cyan),
-                                    ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                          setState(() {});
-                          controlaCod.clear();
-                          controlaNome.clear();
-                          controlaPreco.clear();
-                          controlaQtde.clear();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(20.0),
-                        minimumSize: Size(200, 50),
-                        backgroundColor: Colors.cyan[300],
-                      ),
-                      child: Text(
-                        "Cadastrar",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      )),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        setState(() {});
+                        controlaCod.clear();
+                        controlaNome.clear();
+                        controlaPreco.clear();
+                        controlaQtde.clear();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20.0),
+                      minimumSize: Size(200, 50),
+                      backgroundColor: Colors.cyan[300],
+                    ),
+                    child: Text(
+                      "Cadastrar",
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),
+                    ),
+                  ),
                 ],
               ),
             ],

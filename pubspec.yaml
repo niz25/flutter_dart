@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   mysql1: ^0.19.0
-  footer:
+  http: 1.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -82,9 +82,9 @@ flutter:
         - asset: assets/fonts/TAN_Nimbus/Web/TAN-NIMBUS.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+    - family: Space_Grotesk
+      fonts:
+        - asset: assets/fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
