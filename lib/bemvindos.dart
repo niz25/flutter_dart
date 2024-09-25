@@ -10,359 +10,244 @@ class MyFirstPage extends StatefulWidget {
   State<MyFirstPage> createState() => _MyFirstPageState();
 }
 
-class _MyFirstPageState extends State<MyFirstPage> {
-  String loginTexto = "";
-  int senhaTexto = 0;
-  late FocusNode _loginFocusNode = FocusNode();
-  late FocusNode _senhaFocusNode = FocusNode();
-  bool _showLoginClearIcon = false;
-  bool _showSenhaClearIcon = false;
-  bool _showPassword = false;
-  bool _isHovered = false;
-  late TextEditingController _senhaController;
-  TextEditingController controlaLoginTexto = TextEditingController();
-  TextEditingController controlaSenhaTexto = TextEditingController();
-  Color textColor = Colors.blue[200]!;
-  GlobalKey<FormState> chaveValidacao = GlobalKey();
-  List<Usuarios> listaUser = [];
-  ValueNotifier<bool> loginValido = ValueNotifier(true);
-  ValueNotifier<bool> senhaValida = ValueNotifier(true);
+class _MyFirstPageState extends State<MyFirstPage> 
+{
+  late final TextEditingController _loginController;
+  late final TextEditingController _senhaController;
+  final FocusNode _loginFocusNode = FocusNode();
+  final FocusNode _senhaFocusNode = FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // controla a visibilidade da senha
+  bool _isPasswordVisible = false; 
+
+  final List<Usuarios> _usuarios = 
+  [
+    Usuarios("dani_", "12345678", false),
+    Usuarios("sysale", "987654321", true),
+  ];
 
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
+    _loginController = TextEditingController();
     _senhaController = TextEditingController();
-
-    listaUser = [
-      Usuarios("dani_", "12345678", false),
-      Usuarios("sysale", "987654321", true)
-    ];
   }
 
   @override
-  void dispose() {
+  void dispose() 
+  {
     _loginFocusNode.dispose();
     _senhaFocusNode.dispose();
+    _loginController.dispose();
     _senhaController.dispose();
-    controlaLoginTexto.dispose();
-    controlaSenhaTexto.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Form(
-            key: chaveValidacao,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 120,
-                ),
-                Text(
-                  "SYSALE",
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "TAN Nimbus",
-                    color: Color.fromARGB(255, 160, 205, 207),
-                  ),
-                ),
-                Text(
-                  "Sistema de Vendas",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "TAN Nimbus",
-                    color: Color.fromARGB(255, 160, 205, 207),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 550,
-                  child: Image.asset('assets/images/login.png'),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: TextFormField(
-                    focusNode: _loginFocusNode,
-                    controller: controlaLoginTexto,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person),
-                      suffixIcon: _showLoginClearIcon && _loginFocusNode.hasFocus
-                          ? GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _showLoginClearIcon = false;
-                                  _loginFocusNode.unfocus();
-                                  controlaLoginTexto.clear();
-                                });
-                              },
-                              child: Icon(Icons.clear),
-                            )
-                          : null,
-                      labelText: "Login",
-                      labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-                    ),
-                    style: TextStyle(fontFamily: "Space_Grotesk"), // Fonte aplicada aqui
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira o login.';
-                      }
-                      if (value.length < 3) {
-                        return 'O login deve ter pelo menos 3 caracteres.';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      loginValido.value = value.isNotEmpty && value.length < 3;
-                      setState(() {
-                        _showLoginClearIcon = value.isNotEmpty;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: TextFormField(
-                    focusNode: _senhaFocusNode,
-                    controller: controlaSenhaTexto,
-                    onChanged: (value) {
-                      setState(() {
-                        _showSenhaClearIcon = value.isNotEmpty;
-                      });
-                    },
-                    obscureText: !_showPassword,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _showPassword = !_showPassword;
-                          });
-                        },
-                        child: MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: Icon(_showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        ),
-                      ),
-                      labelText: "Senha",
-                      labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-                    ),
-                    style: TextStyle(fontFamily: "Space_Grotesk"), // Fonte aplicada
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira a senha.';
-                      }
-                      if (value.length < 8) {
-                        return 'A senha deve ter pelo menos 8 dígitos.';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (chaveValidacao.currentState!.validate()) {
-                      loginTexto = controlaLoginTexto.text;
-                      String senhaTexto = controlaSenhaTexto.text;
+  void _login() 
+  {
+    if (_formKey.currentState?.validate() ?? false)
+     {
+      final String login = _loginController.text;
+      final String senha = _senhaController.text;
 
-                      bool loginValido = false;
-                      for (var user in listaUser) {
-                        if (user.login == loginTexto &&
-                            user.senha == senhaTexto) {
-                          loginValido = true;
-                          break;
-                        }
-                      }
-                      if (loginValido) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Row(
-                                children: [
-                                  Icon(Icons.check),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Seja bem-vindo(a) ' + loginTexto + "!",
-                                    style:
-                                        TextStyle(fontFamily: "Space_Grotesk"),
-                                  ),
-                                ],
-                              ),
-                              content: SizedBox(
-                                  height: 150,
-                                  width: 150,
-                                  child: Image.asset(
-                                      'assets/images/check.png')),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyHomePage(loginTexto)));
-                                  },
-                                  child: Text(
-                                    'OK',
-                                    style: TextStyle(color: Colors.cyan),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Row(
-                                children: [
-                                  Icon(Icons.error),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'Login ou senha incorretos!',
-                                    style:
-                                        TextStyle(fontFamily: "Space_Grotesk"),
-                                  ),
-                                ],
-                              ),
-                              content: SizedBox(
-                                  height: 150,
-                                  width: 150,
-                                  child: Image.asset(
-                                      'assets/images/error.png')),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(
-                                    'OK',
-                                    style: TextStyle(color: Colors.cyan),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                    minimumSize: Size(200, 50),
-                    backgroundColor: Color.fromARGB(255, 160, 205, 207),
-                  ),
-                  child: Text(
-                    "Entrar",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontFamily: "Space_Grotesk", // Fonte aplicada aqui
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Esqueceu a senha?",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontFamily: "Space_Grotesk"), // Fonte aplicada aqui
-                    ),
-                    SizedBox(width: 5),
-                    MouseRegion(
-                      onEnter: (_) {
-                        setState(() {
-                          _isHovered = true;
-                        });
-                      },
-                      onExit: (_) {
-                        setState(() {
-                          _isHovered = false;
-                        });
-                      },
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyPassword()),
-                          );
-                        },
-                        child: Text(
-                          "Clique Aqui",
-                          style: TextStyle(
-                            color: _isHovered
-                                ? Color.fromARGB(255, 129, 174, 177)
-                                : Color.fromARGB(255, 160, 205, 207),
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Space_Grotesk", // Fonte aplicada aqui
-                            decoration: _isHovered
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            decorationColor:
-                                Color.fromARGB(255, 143, 183, 185),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+      final user = _usuarios.firstWhere
+      (
+        (user) => user.login == login && user.senha == senha,
+        orElse: () => Usuarios("", "", false), 
+      );
+
+      if (user.login.isNotEmpty) 
+      {
+        _showDialog
+        (
+          title: "Seja bem-vindo(a) $login!",
+          imagePath: "assets/images/check.png",
+          onPressed: () 
+          {
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(login, _usuarios)),);
+          },
+        );
+      } 
+      else 
+      {
+        _showDialog
+        (
+          title: "Login ou senha incorretos!",
+          imagePath: "assets/images/error.png",
+        );
+      }
+    }
+  }
+
+  void _showDialog({required String title, required String imagePath, VoidCallback? onPressed}) 
+  {
+    showDialog
+    (
+      context: context,
+      builder: (context) 
+      {
+        return AlertDialog
+        (
+          title: Row
+          (
+            children: 
+            [
+              Icon(Icons.check),
+              SizedBox(width: 5),
+              Text(title, style: TextStyle(fontFamily: "Space_Grotesk")),
+            ],
+          ),
+          content: SizedBox(height: 150, width: 150, child: Image.asset(imagePath),),
+
+          actions: 
+          [
+            TextButton
+            (
+              onPressed: onPressed ?? () => Navigator.of(context).pop(),
+              child: Text("OK", style: TextStyle(color: Colors.cyan)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      body: Center
+      (
+        child: SingleChildScrollView
+        (
+          child: Form
+          (
+            key: _formKey,
+            child: Column
+            (
+              children:
+               [
+                SizedBox(height: 120),
+
+                Text("SYSALE",style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, fontFamily: "TAN Nimbus", color: Color.fromARGB(255, 160, 205, 207)),),
+                Text("Sistema de Vendas", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, fontFamily: "TAN Nimbus", color: Color.fromARGB(255, 160, 205, 207)),),
+
+                SizedBox(height: 40),
+
+                SizedBox(width: 550, child: Image.asset("assets/images/login.png")),
+
+                SizedBox(height: 15),
+
+                _buildTextField(_loginController, _loginFocusNode, "Login", Icons.person),
+
+                SizedBox(height: 20),
+
+                _buildTextField(_senhaController, _senhaFocusNode, "Senha", Icons.lock, isPassword: true),
+
+                SizedBox(height: 20),
+
+                _buildLoginButton(),
+
+                SizedBox(height: 20),
+
+                _buildForgotPasswordLink(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, FocusNode focusNode, String label, IconData icon, {bool isPassword = false}) 
+  {
+    return Padding
+    (
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextFormField
+      (
+        focusNode: focusNode,
+        controller: controller,
+        obscureText: isPassword && !_isPasswordVisible, 
+        decoration: InputDecoration
+        (
+          prefixIcon: Icon(icon),
+          labelText: label,
+          labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.cyan), borderRadius: BorderRadius.circular(30)),
+          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+          suffixIcon: isPassword ? IconButton
+          (
+            icon: Icon
+            (
+              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+            onPressed: () 
+            {
+              setState(() 
+              {
+                _isPasswordVisible = !_isPasswordVisible; 
+              });
+            },
+          ) : null,
+        ),
+        validator: (value) 
+        {
+          if (value == null || value.isEmpty) 
+          {
+            return "Por favor, insira o $label.";
+          }
+          if (isPassword && value.length < 8) 
+          {
+            return "A senha deve ter pelo menos 8 dígitos.";
+          }
+          if (!isPassword && value.length < 3) 
+          {
+            return "O login deve ter pelo menos 3 caracteres.";
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget _buildLoginButton() 
+  {
+    return ElevatedButton
+    (
+      onPressed: _login,
+      style: ElevatedButton.styleFrom
+      (
+        padding: EdgeInsets.all(20.0),
+        minimumSize: Size(200, 50),
+        backgroundColor: Color.fromARGB(255, 160, 205, 207),
+      ),
+      child: Text("Entrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),),
+    );
+  }
+
+  Widget _buildForgotPasswordLink() 
+  {
+    return Row
+    (
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: 
+      [
+        Text("Esqueceu a senha?", style: TextStyle(color: Colors.black, fontSize: 15, fontFamily: "Space_Grotesk")),
+        
+        SizedBox(width: 5),
+
+        GestureDetector
+        (
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MyPassword())),
+          child: Text("Clique Aqui", style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold, fontFamily: "Space_Grotesk", decoration: TextDecoration.underline),),
+        ),
+      ],
     );
   }
 }

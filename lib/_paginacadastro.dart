@@ -48,7 +48,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     keyboardType: TextInputType.name,
                     controller: controlaNome,
                     decoration: InputDecoration(
-                      label: Text("Nome Completo"),
+                      label: Text("Nome Completo", style: TextStyle(fontFamily: "Space_Grotesk"),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -96,7 +96,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     keyboardType: TextInputType.number,
                     controller: controlaCfp,
                     decoration: InputDecoration(
-                      label: Text("CPF"),
+                      label: Text("CPF", style: TextStyle(fontFamily: "Space_Grotesk"),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -132,7 +132,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                   return TextFormField(
                     controller: controlaEmail,
                     decoration: InputDecoration(
-                      label: Text("E-mail"),
+                      label: Text("E-mail", style: TextStyle(fontFamily: "Space_Grotesk")),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -353,7 +353,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       return TextFormField(
                         controller: controlaCod,
                         decoration: InputDecoration(
-                          label: Text("Código"),
+                          label: Text("Código", style: TextStyle(fontFamily: "Space_Grotesk"),),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -386,7 +386,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                         keyboardType: TextInputType.name,
                         controller: controlaNome,
                         decoration: InputDecoration(
-                          label: Text("Nome"),
+                          label: Text("Nome", style: TextStyle(fontFamily: "Space_Grotesk"),),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -430,7 +430,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       return TextFormField(
                         controller: controlaPreco,
                         decoration: InputDecoration(
-                          label: Text("Preço"),
+                          label: Text("Preço", style: TextStyle(fontFamily: "Space_Grotesk"),),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -461,7 +461,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       return TextFormField(
                         controller: controlaQtde,
                         decoration: InputDecoration(
-                          label: Text("Quantidade"),
+                          label: Text("Quantidade", style: TextStyle(fontFamily: "Space_Grotesk"),),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),

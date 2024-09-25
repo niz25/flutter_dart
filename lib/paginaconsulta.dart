@@ -29,6 +29,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     controller: controlaTexto,
                     decoration: InputDecoration(
                       labelText: 'Buscar por nome',
+                      labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
