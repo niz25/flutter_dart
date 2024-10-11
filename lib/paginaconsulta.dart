@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class FuncionarioFormWidget extends StatefulWidget {
@@ -17,24 +19,35 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
+    return SingleChildScrollView
+    (
+      child: Padding
+      (
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  child: TextField(
+        child: Column
+        (
+          children: 
+          [
+            Row
+            (
+              children: 
+              [
+                Flexible
+                (
+                  child: TextField
+                  (
                     controller: controlaTexto,
-                    decoration: InputDecoration(
+                    decoration: InputDecoration
+                    (
                       labelText: 'Buscar por nome',
                       labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
-                      border: OutlineInputBorder(
+                      border: OutlineInputBorder
+                      (
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan),
+                      focusedBorder: OutlineInputBorder
+                      (
+                        borderSide: BorderSide(color: Colors.cyan, width: 2),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
@@ -46,42 +59,68 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
             ),
 
             SizedBox(height: 20),
-            SizedBox(height: 20),
 
             if (_showFuncionarioTable)
-              SingleChildScrollView(
+              SingleChildScrollView
+              (
                 scrollDirection: Axis.horizontal,
-                child: Container(
+                child: Container
+                (
+                  decoration: BoxDecoration
+                  (
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.cyan, width: 2),
+                  ),
                   width: 600,
-                  child: DataTable(
+                  child: DataTable
+                  (
                     columnSpacing: 20.0,
                     dataRowHeight: 50.0,
-                    columns: [
-                      DataColumn(label: Text('Nome', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataColumn(label: Text('CPF', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataColumn(label: Text('Email', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                    headingRowColor: MaterialStateColor.resolveWith((states) => Colors.cyan[100]!),
+                    columns: 
+                    [
+                      DataColumn(label: Text('Nome', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('CPF', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('Email', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
                     ],
-                    rows: [
-                      DataRow(cells: [
-                        DataCell(Text('Daniela Mendonça', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('12345678910', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('cl202203@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('Heloise Kuhl de Oliveira', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('01987654321', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('cl202234@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('Gonçalo Henrique da Cruz', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('11223344556', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('cl202233@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('Maria Eduarda Silva Demonte', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('66778899001', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                        DataCell(Text('cl202251@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      ]),
+                    rows: 
+                    [
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('Daniela Mendonça', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('12345678910', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('cl202203@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('Heloise Kuhl de Oliveira', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('01987654321', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('cl202234@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('Gonçalo Henrique da Cruz', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('11223344556', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('cl202233@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('Maria Eduarda Silva Demonte', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('66778899001', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('cl202251@g.unicamp.br', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
                     ],
                   ),
                 ),
@@ -89,9 +128,11 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
 
             SizedBox(height: 15,),
 
-            Visibility(
+            Visibility
+            (
               visible: _showButton,
-              child: ElevatedButton(
+              child: ElevatedButton
+              (
                 onPressed: () {
                   setState(() {
                     _showButton = false;
@@ -100,7 +141,8 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     _showProdutoTable = false;
                   });
                 },
-                style: ElevatedButton.styleFrom(
+                style: ElevatedButton.styleFrom
+                (
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
                   minimumSize: Size(200, 50),
                   backgroundColor: Colors.cyan[300],
@@ -108,11 +150,14 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 child: Text('Consultar Funcionário', style: TextStyle(color: Colors.white, fontFamily: "Space_Grotesk")),
               ),
             ),
+
             SizedBox(height: 20,),
 
-            Visibility(
+            Visibility
+            (
               visible: _showButton1,
-              child: ElevatedButton(
+              child: ElevatedButton
+              (
                 onPressed: () {
                   setState(() {
                     _atuProduto = false;
@@ -120,13 +165,17 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     _showButton = true;
                     _showButton1 = false;
 
-                    showDialog(
+                    showDialog
+                    (
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
+                        return AlertDialog
+                        (
                           title: Text('Atualizado com Sucesso', style: TextStyle(fontFamily: "Space_Grotesk")),
-                          actions: <Widget>[
-                            TextButton(
+                          actions: <Widget>
+                          [
+                            TextButton
+                            (
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -138,7 +187,8 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     );
                   });
                 },
-                style: ElevatedButton.styleFrom(
+                style: ElevatedButton.styleFrom
+                (
                   padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
                   minimumSize: Size(200, 50),
                   backgroundColor: Colors.cyan[300],
@@ -168,28 +218,40 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
+    return SingleChildScrollView
+    (
+      child: Padding
+      (
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  child: TextField(
+        child: Column
+        (
+          children: 
+          [
+            Row
+            (
+              children: 
+              [
+                Flexible
+                (
+                  child: TextField
+                  (
                     controller: controlaTexto,
                     decoration: InputDecoration(
                       labelText: _buscarPorCodigo ? 'Buscar por código' : 'Buscar por nome',
-                      border: OutlineInputBorder(
+                      labelStyle: TextStyle(fontFamily: "Space_Grotesk"),
+                      border: OutlineInputBorder
+                      (
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan),
+                      focusedBorder: OutlineInputBorder
+                      (
+                        borderSide: BorderSide(color: Colors.cyan, width: 2),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.swap_horiz),
+                      suffixIcon: IconButton
+                      (
+                        icon: Icon(Icons.swap_horiz, color: Colors.cyan),
                         onPressed: () {
                           setState(() {
                             _buscarPorCodigo = !_buscarPorCodigo;
@@ -205,44 +267,59 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
             ),
 
             SizedBox(height: 20),
-            SizedBox(height: 20),
 
             if (_showProdutoTable)
-              SingleChildScrollView(
+              SingleChildScrollView
+              (
                 scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columnSpacing: 16.0,
-                  dataRowHeight: 48.0,
-                  columns: [
-                    DataColumn(label: Text('Código', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    DataColumn(label: Text('Nome', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    DataColumn(label: Text('Preço', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    DataColumn(label: Text('Quantidade', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                  ],
-                  rows: [
-                    DataRow(cells: [
-                      DataCell(Text('001', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('Óleo', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('R\$ 10,00', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('50', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('002', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('Sabão Em Pó', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('R\$ 20,00', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('30', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('003', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('Shampoo', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('R\$ 25,00', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                      DataCell(Text('40', style: TextStyle(fontFamily: "Space_Grotesk"))),
-                    ]),
-                  ],
+                child: Container
+                (
+                  decoration: BoxDecoration
+                  (
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.cyan, width: 2),
+                  ),
+                  child: DataTable
+                  (
+                    columnSpacing: 16.0,
+                    dataRowHeight: 50.0,
+                    headingRowColor: MaterialStateColor.resolveWith((states) => Colors.cyan[100]!),
+                    columns: 
+                    [
+                      DataColumn(label: Text('Código', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('Nome', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('Preço', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('Quantidade', style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold))),
+                    ],
+                    rows: 
+                    [
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('001', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('Óleo', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('R\$ 10,00', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('50', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
+                      DataRow
+                      (
+                        cells: 
+                        [
+                          DataCell(Text('002', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('Arroz', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('R\$ 20,00', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                          DataCell(Text('100', style: TextStyle(fontFamily: "Space_Grotesk"))),
+                        ]
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
-            SizedBox(height: 15,),
+            SizedBox(height: 20),
+
             Visibility(
               visible: _showButton2,
               child: ElevatedButton(
@@ -260,43 +337,6 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                   backgroundColor: Colors.cyan[300],
                 ),
                 child: Text('Consultar Produto', style: TextStyle(color: Colors.white, fontFamily: "Space_Grotesk")),
-              ),
-            ),
-
-            Visibility(
-              visible: _showButton3,
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _showButton2 = true;
-                    _showButton3 = false;
-                    _showProdutoTable = true;
-                    _showFuncionarioTable = false;
-
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Atualizado com Sucesso', style: TextStyle(fontFamily: "Space_Grotesk")),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('OK', style: TextStyle(fontFamily: "Space_Grotesk")),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                  minimumSize: Size(200, 50),
-                  backgroundColor: Colors.cyan[300],
-                ),
-                child: Text('Atualizar Produto', style: TextStyle(color: Colors.white, fontFamily: "Space_Grotesk")),
               ),
             ),
           ],
