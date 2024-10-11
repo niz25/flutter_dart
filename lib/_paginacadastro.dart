@@ -486,7 +486,8 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                     },
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton(
+                  ElevatedButton
+                  (
                     onPressed: () {
                       bool isCodValid = controlaCod.text.isNotEmpty;
                       bool isNomeValid = controlaNome.text.isNotEmpty && controlaNome.text.length >= 3;
@@ -502,39 +503,44 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
                       bool isCodCadastrado = listaProd.any((produto) => produto.cod == int.parse(controlaCod.text));
 
-                      if (isCodCadastrado) {
-                        showDialog(
+                      if (isCodCadastrado) 
+                      {
+                        showDialog
+                        (
                           context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Row(
-                                children: [
+                          builder: (context) 
+                          {
+                            return AlertDialog
+                            (
+                              title: Row
+                              (
+                                children: 
+                                [
                                   Icon(Icons.error),
                                   SizedBox(width: 5),
                                   Text('ERRO', style: TextStyle(fontFamily: "Space_Grotesk")),
                                 ],
                               ),
-                              content: Column(
+                              content: Column
+                              (
                                 mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'O produto não foi cadastrado! Já existe um produto com esse código.',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),
-                                  ),
+                                children: 
+                                [
+                                  Text('O produto não foi cadastrado! Já existe um produto com esse código.', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontFamily: "Space_Grotesk"),),
+                                  
                                   SizedBox(height: 20),
+
                                   Image.asset('assets/images/error.png', height: 150, width: 150),
                                 ],
                               ),
-                              actions: [
-                                TextButton(
+                              actions: 
+                              [
+                                TextButton
+                                (
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text(
-                                    'OK',
-                                    style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),
-                                  ),
+                                  child: Text('OK', style: TextStyle(color: Colors.cyan, fontFamily: "Space_Grotesk"),),
                                 ),
                               ],
                             );
@@ -646,6 +652,21 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),
                     ),
                   ),
+
+                  SizedBox(height: 20),
+
+                  ElevatedButton.icon
+                  (
+                    onPressed: () {
+                    
+                  }, label: Text("Scanner",
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),), icon: Icon(Icons.qr_code_scanner, color: Colors.white,), style: ElevatedButton.styleFrom
+                  (
+                    padding: EdgeInsets.all(20.0),
+                    minimumSize: Size(200, 50),
+                    backgroundColor: Colors.cyan[300],
+                  ),
+                  )
                 ],
               ),
             ],
