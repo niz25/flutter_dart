@@ -1,14 +1,14 @@
 class CadastroFunc
 {
   String _nome = "";
-  int _cpf = 0;
+  String _cpf = "";
   String _email = "";
 
   //GETTERS E SETTERS 
 
-  get cpf => this._cpf;
+  String get cpf => this._cpf;
 
-  set cpf( value) => this._cpf = value;
+  set cpf(String value) => this._cpf = value;
 
   String get nome => this._nome;
 
@@ -18,8 +18,17 @@ class CadastroFunc
 
   set email(String value) => this._email = value;
 
+  CadastroFunc();
+
+  CadastroFunc.fromJson(Map<String, dynamic> json)
+  :
+    _cpf = json["cpf"],
+    _nome = json["nome"],
+    _email = json["email"];
+
+
   //CONSTRUTOR
-  CadastroFunc(this._nome, this._cpf, this._email);
+  //CadastroFunc(this._nome, this._cpf, this._email);
   
 
 }
