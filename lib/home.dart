@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage>
 
               if (usuarioLogado.login.isEmpty) 
               {
-                print("No matching user found.");
+                print("Nenhum usuário encontrado.");
                 return;
               }
 
@@ -249,7 +249,151 @@ class _MyHomePageState extends State<MyHomePage>
                   },
                 ),
 
-                SizedBox(height: 30),
+                SizedBox(height: 60),
+
+                Text("Sobre Nós", style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold, fontSize: 20,), textAlign: TextAlign.center,),
+
+                SizedBox(height: 50),
+
+                //DANIELA
+                Row
+                (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: 
+                  [
+                    Flexible
+                    (
+                      child: ClipRRect
+                      (
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset('assets/images/dani.jpeg', width: 150, height: 150, fit: BoxFit.cover,),
+                      )
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Flexible
+                    (
+                      child: Column
+                      (
+                        children: 
+                        [
+                          Text("Daniela Mendonça", style: TextStyle(fontSize: 18, fontFamily: "Space_Grotesk", color: Colors.cyan,), textAlign: TextAlign.justify,),
+
+                          Text("Gerente de Projeto, designer geral e desenvolvedora full-stack. Responsável pelo design e construção da aplicação mobile, e, também, pelo POWERBI.", style: TextStyle(fontSize: 14, fontFamily: "Space_Grotesk", color: Colors.black,), textAlign: TextAlign.center,)
+                        ],
+                      )
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 20,),
+                Divider(),
+                SizedBox(height: 20,),
+
+                // HELOISE
+                Row
+                (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: 
+                  [
+                    Flexible
+                    (
+                      child: Column
+                      (
+                        children: 
+                        [
+                          Text("Heloise Kuhl de Oliveira", style: TextStyle(fontSize: 18, fontFamily: "Space_Grotesk", color: Colors.cyan,), textAlign: TextAlign.justify,),
+
+                          Text("Desenvolvedora front-end e designer. Responsável pela construção da aplicação web e pelo design.", style: TextStyle(fontSize: 14, fontFamily: "Space_Grotesk", color: Colors.black,), textAlign: TextAlign.center,)
+                        ],
+                      )
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Flexible
+                    (
+                      child: ClipRRect
+                      (
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset('assets/images/helo.jpeg', width: 150, height: 150, fit: BoxFit.cover,),
+                      )
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 20,),
+                Divider(),
+                SizedBox(height: 20,),
+
+                // GONÇALO
+                Row
+                (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: 
+                  [
+                    Flexible
+                    (
+                      child: ClipRRect
+                      (
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset('assets/images/gon.jpeg', width: 150, height: 150, fit: BoxFit.cover,),
+                      )
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Flexible
+                    (
+                      child: Column
+                      (
+                        children: 
+                        [
+                          Text("Gonçalo Henrique da Cruz", style: TextStyle(fontSize: 18, fontFamily: "Space_Grotesk", color: Colors.cyan,), textAlign: TextAlign.justify,),
+
+                          Text("Desenvolvedor back-end. Responsável pela construção e integração da aplicação desktop", style: TextStyle(fontSize: 14, fontFamily: "Space_Grotesk", color: Colors.black,), textAlign: TextAlign.center,)
+                        ],
+                      )
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 20,),
+                Divider(),
+                SizedBox(height: 20,),
+
+                // MARIA EDUARDA
+                Row
+                (
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: 
+                  [
+                    Flexible
+                    (
+                      child: Column
+                      (
+                        children: 
+                        [
+                          Text("Maria Eduarda Silva Demonte", style: TextStyle(fontSize: 18, fontFamily: "Space_Grotesk", color: Colors.cyan,), textAlign: TextAlign.justify,),
+
+                          Text("Desenvolvedora back-end. Responsável pela construção e integração da aplicação desktop.", style: TextStyle(fontSize: 14, fontFamily: "Space_Grotesk", color: Colors.black,), textAlign: TextAlign.center,)
+                        ],
+                      )
+                    ),
+
+                    SizedBox(width: 20),
+
+                    Flexible
+                    (
+                      child: ClipRRect
+                      (
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset('assets/images/duda.jpeg', width: 150, height: 150, fit: BoxFit.cover,),
+                      )
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -258,71 +402,96 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  Widget buildCard(BuildContext context, String title, String subtitle,
-      String imagePath, VoidCallback onPressed) 
-      {
-        return Card
+Widget buildCard(BuildContext context, String title, String subtitle,
+  String imagePath, VoidCallback onPressed) 
+  {
+    return Card
+    (
+      color: Color.fromARGB(255, 160, 205, 207).withOpacity(0.5), 
+      shape: RoundedRectangleBorder
+      (
+        borderRadius: BorderRadius.circular(20), 
+      ),
+      elevation: 10,
+      shadowColor: Colors.black.withOpacity(0.2),
+      child: Padding
+      (
+        padding: EdgeInsets.all(16),
+        child: Column
         (
-          color: Color.fromARGB(255, 250, 255, 253),
-          shape: RoundedRectangleBorder
-          (
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 5,
-          child: Padding
-          (
-            padding: EdgeInsets.all(20),
-            child: Column
+          mainAxisSize: MainAxisSize.min,
+          children: 
+          [
+            Container
             (
-              mainAxisSize: MainAxisSize.min,
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration
+              (
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Color.fromRGBO(126, 206, 202, 1), width: 2),
+                boxShadow: 
+                [
+                  BoxShadow
+                  (
+                    color: const Color.fromARGB(255, 218, 217, 217).withOpacity(0.1), 
+                    blurRadius: 10, 
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ClipRRect
+              (
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(imagePath, fit: BoxFit.cover,),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            ListTile
+            (
+              title: Center
+              (
+                child: Text(title, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk",),),
+              ),
+              subtitle: Padding
+              (
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(subtitle, textAlign: TextAlign.center, style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white, fontSize: 16,),),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            ButtonBar
+            (
+              alignment: MainAxisAlignment.center,
               children: 
               [
-                Container
+                ElevatedButton
                 (
-                  width: 200,
-                  height: 200,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(imagePath, fit: BoxFit.cover),
-                  ),
-                  decoration: BoxDecoration
+                  style: ElevatedButton.styleFrom
                   (
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    border: Border.all
+                    
+                    minimumSize: Size(200, 50),
+                    backgroundColor: Color.fromRGBO(126, 206, 202, 1), 
+                    shape: RoundedRectangleBorder
                     (
-                      color: Color.fromARGB(255, 196, 255, 247),
+                      borderRadius: BorderRadius.circular(15), 
                     ),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    elevation: 5, // Sombra para o botão
                   ),
-                ),
-
-                SizedBox(height: 70),
-
-                ListTile
-                (
-                  title: Center
-                  (
-                    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 160, 222, 214), fontFamily: "Space_Grotesk",),),
-                  ),
-                  subtitle: Text(subtitle, textAlign: TextAlign.center, style: TextStyle(fontFamily: "Space_Grotesk"),),
-                ),
-
-                SizedBox(height: 50),
-
-                ButtonBar
-                (
-                  alignment: MainAxisAlignment.center,
-                  children: 
-                  [
-                    TextButton
-                    (
-                      onPressed: onPressed,
-                      child: Text("Acessar",style: TextStyle(fontSize: 15, color: Colors.cyan),),
-                    ),
-                  ],
+                  onPressed: onPressed,
+                  child: Text("Acessar", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white, ),),
                 ),
               ],
             ),
-          ),
-        );
-      }
-    }
+          ],
+        ),
+      ),
+    );
+  }
+
+}
