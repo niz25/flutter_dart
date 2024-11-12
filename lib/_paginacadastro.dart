@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
 import 'package:sysale/_cadastrofunc.dart';
 import 'package:sysale/string_extension.dart';
@@ -13,175 +13,186 @@ class FuncionarioFormWidget extends StatefulWidget {
 }
 
 class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
+
   TextEditingController controlaNome = TextEditingController();
   TextEditingController controlaEmail = TextEditingController();
   TextEditingController controlaCfp = TextEditingController();
   GlobalKey<FormState> chaveValidacao = GlobalKey<FormState>();
 
-  // Validação
+  // validação
   ValueNotifier<bool> nomeValido = ValueNotifier(true);
   ValueNotifier<bool> emailValido = ValueNotifier(true);
   ValueNotifier<bool> cpfValido = ValueNotifier(true);
 
   CadastroFunc cadfunc = CadastroFunc();
 
-  /*Future<String> salvarBD() async {
+  Future<String> salvarBD() async 
+  {
     var url = Uri.parse('http://localhost:8080/apiFuncionario/inserirFuncionarios');
-    try {
-      final response = await http.post(
+    
+    // verifica se o CPF é válido antes da requisição
+    if(cadfunc.cpf.isEmpty || cadfunc.nome.isEmpty || cadfunc.email.isEmpty) 
+    {
+      return "Por favor, preencha todos os campos obrigatórios!";
+    }
+
+    try 
+    {
+      final response = await http.post
+      (
         url,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode({
-          "cpf": cadfunc.cpf,
+          "cpf": cadfunc.cpf,  
           "nome": cadfunc.nome,
           "email": cadfunc.email
         }),
       );
 
-      if (response.statusCode == 200) {
+      if(response.statusCode == 200) 
+      {
         return "Funcionário cadastrado com SUCESSO!";
-      } else {
+      } 
+      else 
+      {
         return "Erro ao salvar funcionário: ${response.body}";
       }
-    } catch (e) {
+    } 
+    catch(e) 
+    {
       return "Erro ao salvar funcionário: $e";
     }
-  }*/
-
-  Future<String> salvarBD() async {
-  var url = Uri.parse('http://localhost:8080/apiFuncionario/inserirFuncionarios');
-  
-  // Verificar se o CPF é válido antes de enviar a requisição
-  if (cadfunc.cpf.isEmpty || cadfunc.nome.isEmpty || cadfunc.email.isEmpty) {
-    return "Por favor, preencha todos os campos obrigatórios!";
   }
 
-  try {
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode({
-        "cpf": cadfunc.cpf,  // Assegure-se de que o CPF é uma String
-        "nome": cadfunc.nome,
-        "email": cadfunc.email
-      }),
-    );
 
-    if (response.statusCode == 200) {
-      return "Funcionário cadastrado com SUCESSO!";
-    } else {
-      // Melhorar a mensagem de erro com o conteúdo da resposta
-      return "Erro ao salvar funcionário: ${response.body}";
-    }
-  } catch (e) {
-    return "Erro ao salvar funcionário: $e";
-  }
-}
-
-
-  Future<bool> verificarFuncionarioExistente(String cpf) async {
-    try {
+  Future<bool> verificarFuncionarioExistente(String cpf) async 
+  {
+    try 
+    {
       final response = await http.get(Uri.parse('http://localhost:8080/apiFuncionario/funcionarios/cpf/$cpf'));
 
-      if (response.statusCode == 200) {
+      if(response.statusCode == 200) 
+      {
         final data = jsonDecode(response.body);
         return data != null && data['cpf'] == cpf;
-      } else {
-        print("Failed to fetch product. Status code: ${response.statusCode}");
+      } 
+      else 
+      {
+        print("Erro. Status code: ${response.statusCode}");
         return false;
       }
-    } catch (e) {
-      print("Error in verificarFuncionarioExistente: $e");
+    } 
+    catch (e) 
+    {
+      print("Erro ao verificar funcionário: $e");
       return false;
     }
   }
 
-  // Função para deixar as iniciais de cada palavra em maiúsculas
-  String formatarNome(String nome) {
-    return nome
-        .split(' ')
-        .map((palavra) => palavra.isNotEmpty ? '${palavra[0].toUpperCase()}${palavra.substring(1).toLowerCase()}' : '')
-        .join(' ');
+  // capitalize
+  String formatarNome(String nome) 
+  {
+    return nome . split(' ') . map((palavra) => palavra.isNotEmpty ? '${palavra[0].toUpperCase()}${palavra.substring(1).toLowerCase()}' : '') . join(' ');
   }
 
-  void _showDialog(String title, String message, IconData icon) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Row(
-          children: [
-            Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
-            SizedBox(width: 10),
-            Expanded(child: Text(message)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+  void _showDialog(String title, String message, IconData icon) 
+  {
+    showDialog
+    (
+      context: context,
+      builder: (BuildContext context) 
+      {
+        return AlertDialog
+        (
+          title: Text(title),
+          content: Row
+          (
+            children: 
+            [
+              Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
+              SizedBox(width: 10),
+              Expanded(child: Text(message)),
+            ],
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: 
+          [
+            TextButton
+            (
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return Form
+    (
       key: chaveValidacao,
-      child: Column(
+      child: Column
+      (
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
+        children: 
+        [
+          Padding
+          (
             padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                Text(
-                  "Cadastro de Funcionários",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 69, 181, 196),
-                    fontSize: 25,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "Space_Grotesk",
-                  ),
-                ),
+            child: Column
+            (
+              children: 
+              [
+                Text("Cadastro de Funcionários", style: TextStyle(color: Color.fromARGB(255, 69, 181, 196), fontSize: 25, fontWeight: FontWeight.w400, fontFamily: "Space_Grotesk",),),
+
                 SizedBox(height: 25),
-                // Campo Nome
-                ValueListenableBuilder(
+
+                // NOME
+                ValueListenableBuilder
+                (
                   valueListenable: nomeValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       keyboardType: TextInputType.name,
                       controller: controlaNome,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("Nome Completo", style: TextStyle(fontFamily: "Space_Grotesk")),
-                        border: OutlineInputBorder(
+                        border: OutlineInputBorder
+                        (
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder
+                        (
                           borderSide: BorderSide(color: Colors.cyan),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um nome válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira o nome.';
                         }
-                        if (value.length < 3) {
+                        if(value.length < 3) 
+                        {
                           return 'O nome deve ter pelo menos 3 caracteres.';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value) 
+                      {
                         controlaNome.text = formatarNome(value);
                         controlaNome.selection = TextSelection.fromPosition(TextPosition(offset: controlaNome.text.length));
                         nomeValido.value = value.isNotEmpty && value.length >= 3;
@@ -189,83 +200,116 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     );
                   },
                 ),
+
                 SizedBox(height: 20),
-                // Campo CPF
-                ValueListenableBuilder(
+
+                // CPF
+                ValueListenableBuilder
+                (
                   valueListenable: cpfValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       keyboardType: TextInputType.number,
                       controller: controlaCfp,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("CPF", style: TextStyle(fontFamily: "Space_Grotesk")),
-                        border: OutlineInputBorder(
+                        border: OutlineInputBorder
+                        (
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder
+                        (
                           borderSide: BorderSide(color: Colors.cyan),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um CPF válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira o CPF.';
                         }
-                        if (value.length != 11) {
+                        if(value.length != 11) 
+                        {
                           return 'O CPF deve ter 11 dígitos.';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value) 
+                      {
                         cpfValido.value = value.isNotEmpty && value.length == 11;
                       },
                     );
                   },
                 ),
+
                 SizedBox(height: 20),
-                // Campo E-mail
-                ValueListenableBuilder(
+
+                // EMAIL
+                ValueListenableBuilder
+                (
                   valueListenable: emailValido,
-                  builder: (context, value, child) {
+                  builder: (context, value, child) 
+                  {
                     return TextFormField(
                       controller: controlaEmail,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("E-mail", style: TextStyle(fontFamily: "Space_Grotesk")),
-                        border: OutlineInputBorder(
+                        border: OutlineInputBorder
+                        (
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: OutlineInputBorder
+                        (
                           borderSide: BorderSide(color: Colors.cyan),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um e-mail válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira o e-mail.';
                         }
-                        if (!value.contains('@') || !value.contains('.com')) {
+                        if(!value.contains('@') || !value.contains('.com')) 
+                        {
                           return 'Por favor, insira um e-mail válido.';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value) 
+                      {
                         emailValido.value = value.isNotEmpty && value.contains('@') && value.contains('.com');
                       },
                     );
                   },
                 ),
+
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (chaveValidacao.currentState!.validate()) {
+                
+                ElevatedButton
+                (
+                  onPressed: () async
+                  {
+                    if(chaveValidacao.currentState!.validate()) 
+                    {
                       bool funcionarioExistente = await verificarFuncionarioExistente(controlaCfp.text);
-                      if (funcionarioExistente) {
+                      if(funcionarioExistente) 
+                      {
                         _showDialog("ERRO", "Funcionário já cadastrado com esse CPF", Icons.error);
                         return;
                       }
@@ -275,9 +319,13 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                       cadfunc.email = controlaEmail.text;
 
                       String mensagem = await salvarBD();
-                      if (mensagem.startsWith("Erro")) {
+
+                      if(mensagem.startsWith("Erro")) 
+                      {
                         _showDialog("ERRO", mensagem, Icons.error);
-                      } else {
+                      } 
+                      else 
+                      {
                         _showDialog("Sucesso", mensagem, Icons.check);
                       }
 
@@ -286,15 +334,13 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                       controlaEmail.clear();
                     }
                   },
-                  style: ElevatedButton.styleFrom(
+                  style: ElevatedButton.styleFrom
+                  (
                     padding: EdgeInsets.all(20.0),
                     minimumSize: Size(200, 50),
                     backgroundColor: Colors.cyan[300],
                   ),
-                  child: Text(
-                    "Cadastrar",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),
-                  ),
+                  child: Text("Cadastrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),),
                 ),
               ],
             ),
@@ -304,19 +350,23 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
     );
   }
 }
+
+// -----------------------------------------------------------------------------------------------------------------------
+
 class ProdutoFormWidget extends StatefulWidget {
   @override
   _ProdutoFormWidgetState createState() => _ProdutoFormWidgetState();
 }
 
 class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
+
   TextEditingController controlaCod = TextEditingController();
   TextEditingController controlaNome = TextEditingController();
   TextEditingController controlaQtde = TextEditingController();
   TextEditingController controlaPreco = TextEditingController();
   GlobalKey<FormState> chaveValidacao = GlobalKey<FormState>();
 
-  //validação
+  // validação
   ValueNotifier<bool> codValido = ValueNotifier(true);
   ValueNotifier<bool> nomeValido = ValueNotifier(true);
   ValueNotifier<bool> precoValido = ValueNotifier(true);
@@ -324,117 +374,157 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
   CadastroProd cadprod = CadastroProd();
 
-  // Função para salvar no banco
+  // salva no banco
   Future<String> salvarBD() async
   {
     var url = Uri.parse('http://localhost:8080/apiProdutos/inserirProdutos');
-    try {
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode({
-        "codigo": cadprod.cod,
-        "nome": cadprod.nome,
-        "quantidade": cadprod.qtde,
-        "preco": cadprod.preco
-      }),
-    );
+    try 
+    {
+      final response = await http.post
+      (
+        url,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode({
+          "codigo": cadprod.cod,
+          "nome": cadprod.nome,
+          "quantidade": cadprod.qtde,
+          "preco": cadprod.preco
+        }),
+      );
 
-     // Verifique o status da resposta
-    if (response.statusCode == 200) {
-      return "Produto cadastrado com sucesso!"; // Mensagem de sucesso
-    } else {
-      return "Erro ao salvar produto: ${response.body}"; // Mensagem de erro
+      if(response.statusCode == 200) 
+      {
+        return "Produto cadastrado com sucesso!";
+      } 
+      else 
+      {
+        return "Erro ao salvar produto: ${response.body}";
+      }
+    } 
+    catch(e) 
+    {
+      return "Erro ao salvar produto: $e"; 
     }
-  } catch (e) {
-    return "Erro ao salvar produto: $e"; // Mensagem de erro
-  }
   }
 
-  Future<bool> verificarProdutoExistente(String codigo, String nome) async {
-  try {
-    final response = await http.get(Uri.parse('http://localhost:8080/apiProdutos/produtos/codigo/$codigo'));
+  Future<bool> verificarProdutoExistente(String codigo, String nome) async 
+  {
+    try 
+    {
+      final response = await http.get(Uri.parse('http://localhost:8080/apiProdutos/produtos/codigo/$codigo'));
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      
-      // Ensure 'codigo' and 'nome' keys exist in the response data
-      if (data != null && data.containsKey('codigo') && data.containsKey('nome')) {
-        return data['codigo'] == codigo || data['nome'] == nome;
-      } else {
-        print("Unexpected data format: $data");
+      if(response.statusCode == 200) 
+      {
+        final data = jsonDecode(response.body);
+        
+        // verifica se código e nome existem
+        if(data != null && data.containsKey('codigo') && data.containsKey('nome')) 
+        {
+          return data['codigo'] == codigo || data['nome'] == nome;
+        } 
+        else 
+        {
+          print("Formato inesperado: $data");
+          return false;
+        }
+      } 
+      else 
+      {
+        print("Erro. Status code: ${response.statusCode}");
         return false;
       }
-    } else {
-      print("Failed to fetch product. Status code: ${response.statusCode}");
+    } 
+    catch(e) 
+    {
+      print("Erro em verificar produto: $e");
       return false;
     }
-  } catch (e) {
-    print("Error in verificarProdutoExistente: $e");
-    return false;
   }
-}
 
-  void _showDialog(String title, String message, IconData icon) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(title),
-        content: Row(
-          children: [
-            Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
-            SizedBox(width: 10),
-            Expanded(child: Text(message)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop(); // Fecha o diálogo
-            },
+  void _showDialog(String title, String message, IconData icon) 
+  {
+    showDialog
+    (
+      context: context,
+      builder: (BuildContext context) 
+      {
+        return AlertDialog
+        (
+          title: Text(title),
+          content: Row
+          (
+            children: 
+            [
+              Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
+              SizedBox(width: 10),
+              Expanded(child: Text(message)),
+            ],
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: 
+          [
+            TextButton
+            (
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Column
+    (
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
+      children: 
+      [
+        Padding
+        (
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Form(
+          child: Form
+          (
             key: chaveValidacao,
-            child: Column(
-              children: [
+            child: Column
+            (
+              children: 
+              [
                 Text("Cadastro de Produtos", style: TextStyle(color: Color.fromARGB(255, 69, 181, 196), fontSize: 25, fontWeight: FontWeight.w400, fontFamily: "Space_Grotesk")),
                 SizedBox(height: 25),
                 
-                ValueListenableBuilder(
+                // CÓDIGO
+                ValueListenableBuilder
+                (
                   valueListenable: codValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       controller: controlaCod,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("Código", style: TextStyle(fontFamily: "Space_Grotesk")),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.cyan), borderRadius: BorderRadius.circular(30)),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um código válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value!.isEmpty) {
+                        if(value!.isEmpty) 
+                        {
                           return 'Por favor, insira o código.';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value)
+                      {
                         codValido.value = value.isNotEmpty;
                       },
                     );
@@ -443,39 +533,55 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
                 SizedBox(height: 20),
 
-                ValueListenableBuilder(
+                // NOME
+                ValueListenableBuilder
+                (
                   valueListenable: nomeValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       textCapitalization: TextCapitalization.sentences,
                       keyboardType: TextInputType.name,
                       controller: controlaNome,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("Nome", style: TextStyle(fontFamily: "Space_Grotesk")),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.cyan), borderRadius: BorderRadius.circular(30)),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um nome válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira o nome.';
                         }
-                        if (value.length < 3) {
+                        if(value.length < 3) 
+                        {
                           return 'O nome deve ter pelo menos 3 caracteres.';
                         }
                         return null;
                       },
-                      onChanged: (value) {
-                        String capitalizeText = value.split(' ').map((word) {
-                          if (word.isNotEmpty) {
+
+                      onChanged: (value) 
+                      {
+                        String capitalizeText = value.split(' ').map((word) 
+                        {
+                          if(word.isNotEmpty) 
+                          {
                             return word[0].toUpperCase() + word.substring(1).toLowerCase();
-                          } else {
+                          } 
+                          else
+                          {
                             return '';
                           }
-                        }).join(' ');
-                        controlaNome.value = TextEditingValue(
+                        }). join(' ');
+                        controlaNome.value = TextEditingValue
+                        (
                           text: capitalizeText,
                           selection: controlaNome.selection,
                         );
@@ -486,26 +592,36 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
                 SizedBox(height: 20),
 
-                ValueListenableBuilder(
+                // PREÇO
+                ValueListenableBuilder
+                (
                   valueListenable: precoValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       controller: controlaPreco,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("Preço", style: TextStyle(fontFamily: "Space_Grotesk")),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.cyan), borderRadius: BorderRadius.circular(30)),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com um preço válido",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira o preço';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value) 
+                      {
                         precoValido.value = value.isNotEmpty;
                       },
                     );
@@ -514,26 +630,36 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
                 SizedBox(height: 20),
 
-                ValueListenableBuilder(
+                // QUANTIDADE
+                ValueListenableBuilder
+                (
                   valueListenable: qtdeValido,
-                  builder: (context, value, child) {
-                    return TextFormField(
+                  builder: (context, value, child) 
+                  {
+                    return TextFormField
+                    (
                       controller: controlaQtde,
-                      decoration: InputDecoration(
+                      decoration: InputDecoration
+                      (
                         label: Text("Quantidade", style: TextStyle(fontFamily: "Space_Grotesk")),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.cyan), borderRadius: BorderRadius.circular(30)),
                         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                         errorText: value ? null : "Preencha o campo com uma quantidade válida",
                       ),
-                      validator: (value) {
+
+                      validator: (value) 
+                      {
                         value = value?.trim();
-                        if (value == null || value.isEmpty) {
+                        if(value == null || value.isEmpty) 
+                        {
                           return 'Por favor, insira a quantidade';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+
+                      onChanged: (value) 
+                      {
                         qtdeValido.value = value.isNotEmpty;
                       },
                     );
@@ -542,63 +668,50 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
 
                 SizedBox(height: 20),
 
-                ElevatedButton(
-                  onPressed: () async {
-    if (chaveValidacao.currentState!.validate()) {
-      // Verifique se o produto já existe
-      bool produtoExistente = await verificarProdutoExistente(controlaCod.text, controlaNome.text);
-      if (produtoExistente) {
-        _showDialog("ERRO", "Produto já cadastrado com esse código ou nome!", Icons.error);
-        return;
-      }
+                ElevatedButton
+                (
+                  onPressed: () async 
+                  {
+                    if(chaveValidacao.currentState!.validate()) 
+                    {
+                      // verifica se o produto já existe
+                      bool produtoExistente = await verificarProdutoExistente(controlaCod.text, controlaNome.text);
+                      if(produtoExistente) 
+                      {
+                        _showDialog("ERRO", "Produto já cadastrado com esse código ou nome!", Icons.error);
+                        return;
+                      }
 
-      // Defina os dados e salve no banco de dados via API
-      cadprod.cod = int.parse(controlaCod.text);
-      cadprod.nome = controlaNome.text;
-      cadprod.qtde = int.parse(controlaQtde.text);
-      cadprod.preco = double.parse(controlaPreco.text);
+                      cadprod.cod = int.parse(controlaCod.text);
+                      cadprod.nome = controlaNome.text;
+                      cadprod.qtde = int.parse(controlaQtde.text);
+                      cadprod.preco = double.parse(controlaPreco.text);
 
-      String mensagem = await salvarBD(); // Chame o método que agora retorna uma mensagem
+                      String mensagem = await salvarBD(); 
 
-      // Verifique se a mensagem contém "Erro" para determinar o título do diálogo
-      if (mensagem.startsWith("Erro")) {
-        _showDialog("ERRO", mensagem, Icons.error);
-      } else {
-        _showDialog("Sucesso", mensagem, Icons.check);
-      }
+                      if(mensagem.startsWith("Erro")) 
+                      {
+                        _showDialog("ERRO", mensagem, Icons.error);
+                      } 
+                      else 
+                      {
+                        _showDialog("Sucesso", mensagem, Icons.check);
+                      }
 
-      // Limpar os campos após a operação
-      controlaCod.clear();
-      controlaNome.clear();
-      controlaPreco.clear();
-      controlaQtde.clear();
-    }
-  },
-
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                    minimumSize: Size(200, 50),
-                    backgroundColor: Colors.cyan[300],
-                  ),
-                  child: Text(
-                    "Cadastrar",
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),
-                  ),
-                ),
-
-                SizedBox(height: 20),
-
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Lógica para o botão scanner
+                      controlaCod.clear();
+                      controlaNome.clear();
+                      controlaPreco.clear();
+                      controlaQtde.clear();
+                    }
                   },
-                  label: Text("Scanner", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk")),
-                  icon: Icon(Icons.qr_code_scanner, color: Colors.white),
-                  style: ElevatedButton.styleFrom(
+
+                  style: ElevatedButton.styleFrom
+                  (
                     padding: EdgeInsets.all(20.0),
                     minimumSize: Size(200, 50),
                     backgroundColor: Colors.cyan[300],
                   ),
+                  child: Text("Cadastrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),),
                 ),
               ],
             ),

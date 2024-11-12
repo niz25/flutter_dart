@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:sysale/esqueceuSenha.dart';
+import 'package:http/http.dart' as http;
 import 'package:sysale/home.dart';
-import 'package:sysale/users.dart';
 
 class MyFirstPage extends StatefulWidget {
+  
   const MyFirstPage({Key? key}) : super(key: key);
 
   @override
@@ -12,27 +13,12 @@ class MyFirstPage extends StatefulWidget {
 
 class _MyFirstPageState extends State<MyFirstPage> 
 {
-  late final TextEditingController _loginController;
-  late final TextEditingController _senhaController;
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
   final FocusNode _loginFocusNode = FocusNode();
   final FocusNode _senhaFocusNode = FocusNode();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // controla a visibilidade da senha
-  bool _isPasswordVisible = false; 
-
-  final List<Usuarios> _usuarios = 
-  [
-    Usuarios("dani_", "12345678", false),
-    Usuarios("sysale", "987654321", true),
-  ];
-
-  @override
-  void initState() 
-  {
-    super.initState();
-    _loginController = TextEditingController();
-    _senhaController = TextEditingController();
-  }
+  bool _isPasswordVisible = false;
 
   @override
   void dispose() 
@@ -44,29 +30,24 @@ class _MyFirstPageState extends State<MyFirstPage>
     super.dispose();
   }
 
-  void _login() 
+  Future<void> _login() async 
   {
-    if (_formKey.currentState?.validate() ?? false)
-     {
+    if (_formKey.currentState?.validate() ?? false) 
+    {
       final String login = _loginController.text;
       final String senha = _senhaController.text;
 
-      final user = _usuarios.firstWhere
-      (
-        (user) => user.login == login && user.senha == senha,
-        orElse: () => Usuarios("", "", false), 
-      );
+      final response = await _autenticarLogin(login, senha);
 
-      if (user.login.isNotEmpty) 
+      if (response != null && response['status'] == 'success') 
       {
         _showDialog
         (
           title: "Seja bem-vindo(a) $login!",
           imagePath: "assets/images/check.png",
-          onPressed: () 
-          {
+          onPressed: () {
             Navigator.pop(context);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(login, _usuarios)),);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(userName: login)),);
           },
         );
       } 
@@ -78,6 +59,36 @@ class _MyFirstPageState extends State<MyFirstPage>
           imagePath: "assets/images/error.png",
         );
       }
+    }
+  }
+
+  Future<Map<String, dynamic>?> _autenticarLogin(String login, String senha) async 
+  {
+    final url = Uri.parse('http://localhost:8080/apiLogin/validar');
+    final headers = {'Content-Type': 'application/json'};
+    
+    final body = json.encode({
+      'nome': login,
+      'senha': senha,
+    });
+
+    try 
+    {
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode == 200) 
+      {
+        return json.decode(response.body);
+      } 
+      else 
+      {
+        return null;
+      }
+    } 
+    catch (e) 
+    {
+      print("Erro ao fazer a requisição: $e");
+      return null;
     }
   }
 
@@ -99,8 +110,7 @@ class _MyFirstPageState extends State<MyFirstPage>
               Text(title, style: TextStyle(fontFamily: "Space_Grotesk")),
             ],
           ),
-          content: SizedBox(height: 150, width: 150, child: Image.asset(imagePath),),
-
+          content: SizedBox(height: 150, width: 150, child: Image.asset(imagePath)),
           actions: 
           [
             TextButton
@@ -113,6 +123,7 @@ class _MyFirstPageState extends State<MyFirstPage>
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) 
@@ -153,7 +164,7 @@ class _MyFirstPageState extends State<MyFirstPage>
 
                 SizedBox(height: 20),
 
-                _buildForgotPasswordLink(),
+                // _buildForgotPasswordLink(),
               ],
             ),
           ),
@@ -231,7 +242,7 @@ class _MyFirstPageState extends State<MyFirstPage>
     );
   }
 
-  Widget _buildForgotPasswordLink() 
+  /*Widget _buildForgotPasswordLink() 
   {
     return Row
     (
@@ -249,5 +260,5 @@ class _MyFirstPageState extends State<MyFirstPage>
         ),
       ],
     );
-  }
+  }*/
 }

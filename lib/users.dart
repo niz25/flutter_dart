@@ -2,7 +2,7 @@ class Usuarios
 {
   String _login = "";
   String _senha = "";
-  bool _func = false;
+  bool _tipo = false;
 
   //GETTERS E SETTERS
   String get senha => this._senha;
@@ -13,10 +13,10 @@ class Usuarios
 
   set login(String value) => this.login = value;
 
-  get func => this._func;
+  get tipo => this._tipo;
 
-  set func( value) => this._func = value;
+  set tipo( value) => this._tipo = value;
 
   //CONSTRUTOR
-  Usuarios(this._login, this._senha, this._func);
+  Usuarios(this._login, this._senha, this._tipo);
 }

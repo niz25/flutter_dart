@@ -49,7 +49,7 @@ class _MyPerfilState extends State<MyPerfil>
   {
     final updatedUser = Usuarios(_loginController.text, '', widget.usuarioLogado.login == "dani_" ? true : false,);
 
-    print("Updated User: ${updatedUser.login}, Func: ${updatedUser.func}");
+    print("Updated User: ${updatedUser.login}, Func: ${updatedUser.tipo}");
   }
 
   @override

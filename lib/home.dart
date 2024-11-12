@@ -4,17 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:sysale/_cadastrar.dart';
 import 'package:sysale/bemvindos.dart';
 import 'package:sysale/consultar.dart';
-import 'package:sysale/perfil.dart';
 import 'package:sysale/users.dart';
 
 class MyHomePage extends StatefulWidget {
-  final String nome;
-  final List<Usuarios> listaUser;
+  final String userName;
 
-  MyHomePage(this.nome, this.listaUser, {super.key});
+  const MyHomePage({Key? key, required this.userName}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> 
@@ -31,36 +29,6 @@ class _MyHomePageState extends State<MyHomePage>
         toolbarHeight: 71,
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
-        actions: 
-        [
-          IconButton
-          (
-            icon: Icon(Icons.person),
-            onPressed: () 
-            {
-              final usuarioLogado = widget.listaUser.firstWhere
-              (
-                (user) => user.login == widget.nome,
-                orElse: () => Usuarios("", "", false),
-              );
-
-              if (usuarioLogado.login.isEmpty) 
-              {
-                print("Nenhum usuário encontrado.");
-                return;
-              }
-
-              Navigator.push
-              (
-                context,
-                MaterialPageRoute
-                (
-                  builder: (context) => MyPerfil(userName: widget.nome, listaUser: widget.listaUser, usuarioLogado: usuarioLogado,),
-                ),
-              );
-            },
-          ),
-        ],
       ),
 
       drawer: Drawer
@@ -206,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: 
                   [
-                    Text("Bem vindo(a) ${widget.nome} !", style: TextStyle(color: Color.fromARGB(255, 160, 222, 214), fontSize: 30, fontWeight: FontWeight.bold, fontFamily: "Space_Grotesk",),),
+                    Text("Bem vindo(a) ${widget.userName} !", style: TextStyle(color: Color.fromARGB(255, 160, 222, 214), fontSize: 30, fontWeight: FontWeight.bold, fontFamily: "Space_Grotesk",),),
                   ],
                 ),
 

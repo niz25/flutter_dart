@@ -156,7 +156,7 @@ class _MyCadastroState extends State<MyCadastro>
                     SizedBox(width: 18),
                     Text("Funcionários", style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 69, 181, 196), fontFamily: "Space_Grotesk",),),
 
-                    SizedBox(width: 192),
+                    SizedBox(width: 190),
 
                     Text("Produtos", style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 69, 181, 196), fontFamily: "Space_Grotesk",),),
                   ],
