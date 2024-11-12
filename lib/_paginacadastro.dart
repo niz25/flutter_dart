@@ -25,7 +25,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
 
   CadastroFunc cadfunc = CadastroFunc();
 
-  Future<String> salvarBD() async {
+  /*Future<String> salvarBD() async {
     var url = Uri.parse('http://localhost:8080/apiFuncionario/inserirFuncionarios');
     try {
       final response = await http.post(
@@ -46,7 +46,38 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
     } catch (e) {
       return "Erro ao salvar funcionário: $e";
     }
+  }*/
+
+  Future<String> salvarBD() async {
+  var url = Uri.parse('http://localhost:8080/apiFuncionario/inserirFuncionarios');
+  
+  // Verificar se o CPF é válido antes de enviar a requisição
+  if (cadfunc.cpf.isEmpty || cadfunc.nome.isEmpty || cadfunc.email.isEmpty) {
+    return "Por favor, preencha todos os campos obrigatórios!";
   }
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode({
+        "cpf": cadfunc.cpf,  // Assegure-se de que o CPF é uma String
+        "nome": cadfunc.nome,
+        "email": cadfunc.email
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return "Funcionário cadastrado com SUCESSO!";
+    } else {
+      // Melhorar a mensagem de erro com o conteúdo da resposta
+      return "Erro ao salvar funcionário: ${response.body}";
+    }
+  } catch (e) {
+    return "Erro ao salvar funcionário: $e";
+  }
+}
+
 
   Future<bool> verificarFuncionarioExistente(String cpf) async {
     try {
@@ -74,30 +105,31 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
   }
 
   void _showDialog(String title, String message, IconData icon) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: Row(
-            children: [
-              Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
-              SizedBox(width: 10),
-              Expanded(child: Text(message)),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: Row(
+          children: [
+            Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
+            SizedBox(width: 10),
+            Expanded(child: Text(message)),
           ],
-        );
-      },
-    );
-  }
+        ),
+        actions: [
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

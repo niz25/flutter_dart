@@ -340,6 +340,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
   }
 }
 
+/* -------------------------------------------------------------------------------------------------------- */
 
 class ProdutoFormWidget extends StatefulWidget {
   @override
@@ -570,6 +571,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                   "quantidade": int.tryParse(quantidadeController.text) ?? produto['quantidade'],
                 };
                 atualizarProdutoFunc(produtoAtualizado);
+                buscarProdutosFunc();
                 Navigator.of(context).pop();
               },
               child: Text('Atualizar', style: TextStyle(fontFamily: "Space_Grotesk")),
@@ -588,7 +590,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
   // Excluir produto
   Future<String> excluirProduto(int codigo) async 
   {
-    var url = Uri.parse('http://localhost:8080/apiProdutos/removerProdutos/$codigo'); // Endpoint para excluir o produto
+    var url = Uri.parse('http://localhost:8080/apiProdutos/removerProduto/$codigo');
 
     try 
     {
