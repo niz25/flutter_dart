@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors_in_immutables, prefer_const_constructors, sort_child_properties_last
 
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io'; 
 import 'package:sysale/users.dart'; 
@@ -195,3 +195,4 @@ class _MyPerfilState extends State<MyPerfil>
     );
   }
 }
+*/

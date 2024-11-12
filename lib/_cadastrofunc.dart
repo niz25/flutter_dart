@@ -6,17 +6,19 @@ class CadastroFunc
 
   //GETTERS E SETTERS 
 
+  // CPF
   String get cpf => this._cpf;
-
   set cpf(String value) => this._cpf = value;
 
+  // NOME
   String get nome => this._nome;
-
   set nome(String value) => this._nome = value;
 
+  // EMAIL
   String get email => this._email;
-
   set email(String value) => this._email = value;
+
+  // -------------------------------------------------
 
   CadastroFunc();
 

@@ -13,6 +13,7 @@ class MyFirstPage extends StatefulWidget {
 
 class _MyFirstPageState extends State<MyFirstPage> 
 {
+
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   final FocusNode _loginFocusNode = FocusNode();
@@ -32,14 +33,14 @@ class _MyFirstPageState extends State<MyFirstPage>
 
   Future<void> _login() async 
   {
-    if (_formKey.currentState?.validate() ?? false) 
+    if(_formKey.currentState?.validate() ?? false) 
     {
       final String login = _loginController.text;
       final String senha = _senhaController.text;
 
       final response = await _autenticarLogin(login, senha);
 
-      if (response != null && response['status'] == 'success') 
+      if(response != null && response['status'] == 'success') 
       {
         _showDialog
         (
@@ -76,7 +77,7 @@ class _MyFirstPageState extends State<MyFirstPage>
     {
       final response = await http.post(url, headers: headers, body: body);
 
-      if (response.statusCode == 200) 
+      if(response.statusCode == 200) 
       {
         return json.decode(response.body);
       } 
@@ -85,7 +86,7 @@ class _MyFirstPageState extends State<MyFirstPage>
         return null;
       }
     } 
-    catch (e) 
+    catch(e) 
     {
       print("Erro ao fazer a requisição: $e");
       return null;
@@ -123,7 +124,6 @@ class _MyFirstPageState extends State<MyFirstPage>
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) 
@@ -163,8 +163,6 @@ class _MyFirstPageState extends State<MyFirstPage>
                 _buildLoginButton(),
 
                 SizedBox(height: 20),
-
-                // _buildForgotPasswordLink(),
               ],
             ),
           ),
@@ -207,17 +205,18 @@ class _MyFirstPageState extends State<MyFirstPage>
             },
           ) : null,
         ),
+
         validator: (value) 
         {
-          if (value == null || value.isEmpty) 
+          if(value == null || value.isEmpty) 
           {
             return "Por favor, insira o $label.";
           }
-          if (isPassword && value.length < 8) 
+          if(isPassword && value.length < 8) 
           {
             return "A senha deve ter pelo menos 8 dígitos.";
           }
-          if (!isPassword && value.length < 3) 
+          if(!isPassword && value.length < 3) 
           {
             return "O login deve ter pelo menos 3 caracteres.";
           }
@@ -241,24 +240,4 @@ class _MyFirstPageState extends State<MyFirstPage>
       child: Text("Entrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),),
     );
   }
-
-  /*Widget _buildForgotPasswordLink() 
-  {
-    return Row
-    (
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: 
-      [
-        Text("Esqueceu a senha?", style: TextStyle(color: Colors.black, fontSize: 15, fontFamily: "Space_Grotesk")),
-        
-        SizedBox(width: 5),
-
-        GestureDetector
-        (
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MyPassword())),
-          child: Text("Clique Aqui", style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold, fontFamily: "Space_Grotesk", decoration: TextDecoration.underline),),
-        ),
-      ],
-    );
-  }*/
 }

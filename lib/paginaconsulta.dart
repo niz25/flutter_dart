@@ -10,6 +10,7 @@ class FuncionarioFormWidget extends StatefulWidget {
 }
 
 class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
+
   TextEditingController controlaTexto = TextEditingController();
   bool _isLoading = false;
   bool _showFuncionarioTable = false;
@@ -26,7 +27,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
     {
       final response = await http.get(Uri.parse(url), headers: {'Content-Type': 'application/json; charset=UTF-8'});
 
-      if (response.statusCode == 200) 
+      if(response.statusCode == 200) 
       {
         return response.body;
       } 
@@ -35,7 +36,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
         return 'Erro ao buscar funcionários: ${response.statusCode}';
       }
     } 
-    catch (e) 
+    catch(e) 
     {
       return 'Erro na conexão: $e';
     }
@@ -82,7 +83,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
 
     String nome = controlaTexto.text.trim();
 
-    if (nome.isEmpty) 
+    if(nome.isEmpty) 
     {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Por favor, insira um nome para busca.')));
 
@@ -99,7 +100,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
       _isLoading = false;
     });
 
-    if (resultado.startsWith('Erro')) 
+    if(resultado.startsWith('Erro')) 
     {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(resultado)));
     } 
@@ -107,7 +108,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
     {
       var funcionariosRetornados = jsonDecode(resultado);
 
-      if (funcionariosRetornados.isEmpty) 
+      if(funcionariosRetornados.isEmpty) 
       {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Nenhum funcionário encontrado para "$nome".')));
       } 
@@ -171,6 +172,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
               ],
             ),
           ),
+
           actions: 
           [
             TextButton
@@ -297,8 +299,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                           ),
                         ],
                       );
-                    }).toList(),
-
+                    }). toList(),
                 ),
               )
             ),
@@ -313,7 +314,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 mainAxisSize: MainAxisSize.min,
                 children: 
                 [
-                  if (_isLoading) 
+                  if(_isLoading) 
                     Padding
                     (
                       padding: const EdgeInsets.only(right: 2.0), 
@@ -348,6 +349,7 @@ class ProdutoFormWidget extends StatefulWidget {
 }
 
 class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
+
   TextEditingController controlaTexto = TextEditingController();
   bool _buscarPorCodigo = true;
   bool _showProdutoTable = false;
@@ -422,7 +424,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
         return "Erro ao atualizar produto: ${response.statusCode}";
       }
     } 
-    catch (e) 
+    catch(e) 
     {
       return "Erro na conexão: $e";
     }
@@ -481,8 +483,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
     }
   }
 
-
-  // Atualiza produto
+  // atualiza produto
   void atualizarProdutoFunc(Map<String, dynamic> produto) async 
   {
     String resultado = await atualizarProduto(produto);
@@ -495,7 +496,6 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
     }
   }
 
-  // Exibe o diálogo de atualização
   void mostrarDialogoAtualizar(Map<String, dynamic> produto) 
   {
     TextEditingController nomeController = TextEditingController(text: produto['nome']);
@@ -774,8 +774,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                           ),
                         ],
                       );
-                    }).toList(),
-
+                    }). toList(),
                   ),
                 ),
               ),
@@ -803,7 +802,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       ),
                     ),
                     
-                    // Texto que muda conforme o estado
+                    // texto que muda conforme o estado
                     Text(_isLoading ? 'Carregando...' : 'Consultar Produto'), 
                   ],
                 ), style: ElevatedButton.styleFrom

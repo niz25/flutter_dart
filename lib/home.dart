@@ -151,7 +151,8 @@ class _MyHomePageState extends State<MyHomePage>
               image: DecorationImage
               (
                 image: AssetImage("assets/images/fundo_home.png"),
-                fit: BoxFit.cover, // preenche a tela inteira
+                // preenche a tela inteira
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -256,7 +257,9 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
 
                 SizedBox(height: 20,),
+
                 Divider(),
+
                 SizedBox(height: 20,),
 
                 // HELOISE
@@ -328,7 +331,9 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
 
                 SizedBox(height: 20,),
+                
                 Divider(),
+
                 SizedBox(height: 20,),
 
                 // MARIA EDUARDA
@@ -441,7 +446,6 @@ Widget buildCard(BuildContext context, String title, String subtitle,
                 (
                   style: ElevatedButton.styleFrom
                   (
-                    
                     minimumSize: Size(200, 50),
                     backgroundColor: Color.fromRGBO(126, 206, 202, 1), 
                     shape: RoundedRectangleBorder
@@ -461,5 +465,4 @@ Widget buildCard(BuildContext context, String title, String subtitle,
       ),
     );
   }
-
 }
