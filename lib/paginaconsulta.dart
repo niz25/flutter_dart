@@ -180,7 +180,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk"),),
+              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white),),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -200,7 +200,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                 atualizarFuncionario(funcionarioAtualizado);
                 Navigator.of(context).pop();
               },
-              child: Text('Atualizar', style: TextStyle(fontFamily: "Space_Grotesk")),
+              child: Text('Atualizar', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white)),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -325,7 +325,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                       ),
                     ),
                     
-                    Text(_isLoading ? 'Carregando...' : 'Consultar Funcionário'), 
+                    Text(_isLoading ? 'Carregando...' : 'Consultar Funcionário', style: TextStyle(color: Colors.white),), 
                   ],
                 ), style: ElevatedButton.styleFrom
                   (
@@ -552,7 +552,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk"),),
+              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white),),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -574,7 +574,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                 buscarProdutosFunc();
                 Navigator.of(context).pop();
               },
-              child: Text('Atualizar', style: TextStyle(fontFamily: "Space_Grotesk")),
+              child: Text('Atualizar', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white)),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -619,7 +619,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
       builder: (context) 
       {
         return AlertDialog(
-          title: Text('Excluir Produto', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.red[300])),
+          title: Text('Excluir Produto', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.cyan)),
           content: Text('Tem certeza de que deseja excluir este produto?', style: TextStyle(fontFamily: "Space_Grotesk")),
           actions: 
           [
@@ -628,7 +628,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
               onPressed: () {
                 Navigator.of(context).pop(); // fecha/cancela
               },
-              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk")),
+              child: Text('Cancelar', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white)),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -648,7 +648,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                 }
                 Navigator.of(context).pop();
               },
-              child: Text('Excluir', style: TextStyle(fontFamily: "Space_Grotesk")),
+              child: Text('Excluir', style: TextStyle(fontFamily: "Space_Grotesk", color: Colors.white)),
               style: ElevatedButton.styleFrom
               (
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
@@ -803,7 +803,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                     ),
                     
                     // texto que muda conforme o estado
-                    Text(_isLoading ? 'Carregando...' : 'Consultar Produto'), 
+                    Text(_isLoading ? 'Carregando...' : 'Consultar Produto', style: TextStyle(color: Colors.white)), 
                   ],
                 ), style: ElevatedButton.styleFrom
                   (

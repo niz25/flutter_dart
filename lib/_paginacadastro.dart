@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, prefer_const_constructors, sort_child_properties_last
 import 'package:flutter/material.dart';
 import 'package:sysale/_cadastrofunc.dart';
 import 'package:sysale/string_extension.dart';
@@ -30,12 +30,6 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
   {
     var url = Uri.parse('http://localhost:8080/apiFuncionario/inserirFuncionarios');
     
-    // verifica se o CPF é válido antes da requisição
-    if(cadfunc.cpf.isEmpty || cadfunc.nome.isEmpty || cadfunc.email.isEmpty) 
-    {
-      return "Por favor, preencha todos os campos obrigatórios!";
-    }
-
     try 
     {
       final response = await http.post
@@ -55,7 +49,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
       } 
       else 
       {
-        return "Erro ao salvar funcionário: ${response.body}";
+        return "${response.body}";
       }
     } 
     catch(e) 
@@ -63,7 +57,6 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
       return "Erro ao salvar funcionário: $e";
     }
   }
-
 
   Future<bool> verificarFuncionarioExistente(String cpf) async 
   {
@@ -74,15 +67,24 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
       if(response.statusCode == 200) 
       {
         final data = jsonDecode(response.body);
-        return data != null && data['cpf'] == cpf;
+        
+        if(data != null && data['cpf'] == cpf) 
+        {
+          return true; 
+        } 
+        else 
+        {
+          print("Funcionário não encontrado ou formato inesperado: $data");
+          return false;
+        }
       } 
-      else 
-      {
+      else {
+
         print("Erro. Status code: ${response.statusCode}");
         return false;
       }
     } 
-    catch (e) 
+    catch(e) 
     {
       print("Erro ao verificar funcionário: $e");
       return false;
@@ -94,41 +96,6 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
   {
     return nome . split(' ') . map((palavra) => palavra.isNotEmpty ? '${palavra[0].toUpperCase()}${palavra.substring(1).toLowerCase()}' : '') . join(' ');
   }
-
-  void _showDialog(String title, String message, IconData icon) 
-  {
-    showDialog
-    (
-      context: context,
-      builder: (BuildContext context) 
-      {
-        return AlertDialog
-        (
-          title: Text(title),
-          content: Row
-          (
-            children: 
-            [
-              Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
-              SizedBox(width: 10),
-              Expanded(child: Text(message)),
-            ],
-          ),
-          actions: 
-          [
-            TextButton
-            (
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +277,10 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                       bool funcionarioExistente = await verificarFuncionarioExistente(controlaCfp.text);
                       if(funcionarioExistente) 
                       {
-                        _showDialog("ERRO", "Funcionário já cadastrado com esse CPF", Icons.error);
+                        ScaffoldMessenger.of(context).showSnackBar
+                        (
+                          SnackBar(content: Text("Funcionário já cadastrado com esse CPF!"))
+                        );
                         return;
                       }
 
@@ -320,14 +290,10 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
 
                       String mensagem = await salvarBD();
 
-                      if(mensagem.startsWith("Erro")) 
-                      {
-                        _showDialog("ERRO", mensagem, Icons.error);
-                      } 
-                      else 
-                      {
-                        _showDialog("Sucesso", mensagem, Icons.check);
-                      }
+                      ScaffoldMessenger.of(context).showSnackBar
+                      (
+                        SnackBar(content: Text(mensagem))
+                      );
 
                       controlaCfp.clear();
                       controlaNome.clear();
@@ -340,7 +306,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
                     minimumSize: Size(200, 50),
                     backgroundColor: Colors.cyan[300],
                   ),
-                  child: Text("Cadastrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk"),),
+                  child: Text("Cadastrar", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Space_Grotesk")),
                 ),
               ],
             ),
@@ -350,6 +316,7 @@ class _FuncionarioFormWidgetState extends State<FuncionarioFormWidget> {
     );
   }
 }
+
 
 // -----------------------------------------------------------------------------------------------------------------------
 
@@ -375,7 +342,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
   CadastroProd cadprod = CadastroProd();
 
   // salva no banco
-  Future<String> salvarBD() async
+  Future<String> salvarBD() async 
   {
     var url = Uri.parse('http://localhost:8080/apiProdutos/inserirProdutos');
     try 
@@ -392,13 +359,12 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
         }),
       );
 
-      if(response.statusCode == 200) 
+      if(response.statusCode == 200)
       {
         return "Produto cadastrado com sucesso!";
       } 
-      else 
-      {
-        return "Erro ao salvar produto: ${response.body}";
+      else {
+        return "${response.body}";
       }
     } 
     catch(e) 
@@ -416,7 +382,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
       if(response.statusCode == 200) 
       {
         final data = jsonDecode(response.body);
-        
+
         // verifica se código e nome existem
         if(data != null && data.containsKey('codigo') && data.containsKey('nome')) 
         {
@@ -425,7 +391,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
         else 
         {
           print("Formato inesperado: $data");
-          return false;
+          return true;
         }
       } 
       else 
@@ -439,40 +405,6 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
       print("Erro em verificar produto: $e");
       return false;
     }
-  }
-
-  void _showDialog(String title, String message, IconData icon) 
-  {
-    showDialog
-    (
-      context: context,
-      builder: (BuildContext context) 
-      {
-        return AlertDialog
-        (
-          title: Text(title),
-          content: Row
-          (
-            children: 
-            [
-              Icon(icon, color: title == "ERRO" ? Colors.red : Colors.green),
-              SizedBox(width: 10),
-              Expanded(child: Text(message)),
-            ],
-          ),
-          actions: 
-          [
-            TextButton
-            (
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -516,14 +448,14 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                       validator: (value) 
                       {
                         value = value?.trim();
-                        if(value!.isEmpty) 
+                        if(value!.isEmpty)
                         {
                           return 'Por favor, insira o código.';
                         }
                         return null;
                       },
 
-                      onChanged: (value)
+                      onChanged: (value) 
                       {
                         codValido.value = value.isNotEmpty;
                       },
@@ -539,8 +471,7 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                   valueListenable: nomeValido,
                   builder: (context, value, child) 
                   {
-                    return TextFormField
-                    (
+                    return TextFormField(
                       textCapitalization: TextCapitalization.sentences,
                       keyboardType: TextInputType.name,
                       controller: controlaNome,
@@ -575,11 +506,12 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                           {
                             return word[0].toUpperCase() + word.substring(1).toLowerCase();
                           } 
-                          else
+                          else 
                           {
                             return '';
                           }
                         }). join(' ');
+
                         controlaNome.value = TextEditingValue
                         (
                           text: capitalizeText,
@@ -676,35 +608,37 @@ class _ProdutoFormWidgetState extends State<ProdutoFormWidget> {
                     {
                       // verifica se o produto já existe
                       bool produtoExistente = await verificarProdutoExistente(controlaCod.text, controlaNome.text);
+                      
                       if(produtoExistente) 
                       {
-                        _showDialog("ERRO", "Produto já cadastrado com esse código ou nome!", Icons.error);
+                        ScaffoldMessenger.of(context).showSnackBar
+                        (
+                          SnackBar(content: Text("Produto já cadastrado com esse código ou nome!"))
+                        );
                         return;
                       }
+                      else
+                      {
+                        cadprod.cod = int.parse(controlaCod.text);
+                        cadprod.nome = controlaNome.text;
+                        cadprod.qtde = int.parse(controlaQtde.text);
+                        cadprod.preco = double.parse(controlaPreco.text);
 
-                      cadprod.cod = int.parse(controlaCod.text);
-                      cadprod.nome = controlaNome.text;
-                      cadprod.qtde = int.parse(controlaQtde.text);
-                      cadprod.preco = double.parse(controlaPreco.text);
+                        controlaNome.clear();
+                        controlaCod.clear();
+                        controlaPreco.clear();
+                        controlaQtde.clear();
+                      }
 
                       String mensagem = await salvarBD(); 
 
-                      if(mensagem.startsWith("Erro")) 
-                      {
-                        _showDialog("ERRO", mensagem, Icons.error);
-                      } 
-                      else 
-                      {
-                        _showDialog("Sucesso", mensagem, Icons.check);
-                      }
+                      ScaffoldMessenger.of(context).showSnackBar
+                      (
+                        SnackBar(content: Text(mensagem))
+                      );
 
-                      controlaCod.clear();
-                      controlaNome.clear();
-                      controlaPreco.clear();
-                      controlaQtde.clear();
                     }
                   },
-
                   style: ElevatedButton.styleFrom
                   (
                     padding: EdgeInsets.all(20.0),

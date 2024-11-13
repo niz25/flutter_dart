@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage>
                         [
                           Icon(Icons.logout),
                           SizedBox(width: 5),
-                          Text("Deseja mesmo sair?", style: TextStyle(fontFamily: "Space_Grotesk")),
+                          Text("Deseja mesmo sair?", style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold)),
                         ],
                       ),
                       content: SizedBox(height: 150, width: 150, child: Image.asset("assets/images/question.png"),),

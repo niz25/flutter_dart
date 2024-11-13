@@ -108,7 +108,7 @@ class _MyFirstPageState extends State<MyFirstPage>
             [
               Icon(Icons.check),
               SizedBox(width: 5),
-              Text(title, style: TextStyle(fontFamily: "Space_Grotesk")),
+              Text(title, style: TextStyle(fontFamily: "Space_Grotesk", fontWeight: FontWeight.bold)),
             ],
           ),
           content: SizedBox(height: 150, width: 150, child: Image.asset(imagePath)),
